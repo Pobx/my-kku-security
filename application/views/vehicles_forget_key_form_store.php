@@ -22,7 +22,7 @@
 				// $this->load->view('vehicles_forget_key_detective_form_store_modal');
 
 		  	?>
-
+<?php $this->load->view('accidents_upload_images');?>
 			</div>
 
 			<div class="box-footer">

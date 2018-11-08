@@ -26,9 +26,7 @@
 			<div class="table-responsive">
 				<table class="table table-bordered table-striped mydataTable">
 					<thead>
-						<?php foreach ($header_columns as $key => $value)
-{
-    ?>
+						<?php foreach ($header_columns as $key => $value){ ?>
 						<th>
 							<?php echo $value; ?>
 						</th>
@@ -91,7 +89,7 @@
 							</td>
 
 						</tr>
-						<tr id="<?php echo "acc_info".$value['id']; ?>" class="collapse">
+						<tr id="<?php echo "acc_info".$value['id']; ?>" class="collapse content-wrapper">
 							<td colspan="13">
 							<div class="row">
 							<div class="col-md-4">
@@ -206,7 +204,40 @@
 									</div>
 									
 								</div><!--row -->
-							
+
+								<?php 
+									$query = $this->db->where(['image_category'=>'accd', 'category_id' => $results[0]['id']])->get('images');
+									$images = $query->result_array();
+									// print_r($images);
+									$images_num_rows = $query->num_rows();
+									if($images_num_rows > 0){
+								?>
+
+										<div class="row">
+											<div class="box box-success box-solid mr-20 ml-20">
+												<div class="box-header with-border">
+												<h3 class="box-title">ภาพถ่ายเหตุการณ์</h3>
+												</div>
+												<!-- /.box-header -->
+												<div class="box-body">
+								<?php
+										foreach($images as $img){
+								?>
+											<div class="col-sm-12 col-md-4">
+												<img class='img-responsive shadow-none p-3 mb-5 bg-light rounded' src="<?php echo base_url()."/uploads/".$img['image_path'];?>">
+											</div>
+											
+								<?php			
+										}//foreach
+								?>
+												</div>
+											</div>
+									</div><!-- row -->
+								<?php
+									}//if
+									
+								?>
+
 							</td>
 						</tr>
 						<?php }?>

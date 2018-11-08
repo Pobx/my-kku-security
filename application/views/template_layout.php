@@ -400,25 +400,25 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 			// 	$(this).append('<br /><input type="text" class="form-control" placeholder="ค้นหา... ' + title + '" />');
 			// });
 
-			$('.mydataTable').DataTable({
-				"language": {
-					"emptyTable": "ไม่พบรายการ",
-					"lengthMenu": "แสดง _MENU_ จำนวน",
-					"info": "แสดง _START_ ถึง _END_ จากทั้งหมด _TOTAL_ จำนวน",
-					"infoEmpty": "รายการ 0 ถึง 0 จาก 0 รายการ",
-					"thousands": ",",
-					"loadingRecords": "กำลังโหลดข้อมูล...",
-					"processing": "กำลังดำเนินการ...",
-					"search": "ค้นหา:",
-					"zeroRecords": "ไม่พบรายการ",
-					"paginate": {
-						"first": "หน้าแรก",
-						"last": "สุดท้าย",
-						"next": "ต่อไป",
-						"previous": "ย้อนกลับ"
-					}
-				}
-			})
+			// $('.mydataTable').DataTable({
+			// 	"language": {
+			// 		"emptyTable": "ไม่พบรายการ",
+			// 		"lengthMenu": "แสดง _MENU_ จำนวน",
+			// 		"info": "แสดง _START_ ถึง _END_ จากทั้งหมด _TOTAL_ จำนวน",
+			// 		"infoEmpty": "รายการ 0 ถึง 0 จาก 0 รายการ",
+			// 		"thousands": ",",
+			// 		"loadingRecords": "กำลังโหลดข้อมูล...",
+			// 		"processing": "กำลังดำเนินการ...",
+			// 		"search": "ค้นหา:",
+			// 		"zeroRecords": "ไม่พบรายการ",
+			// 		"paginate": {
+			// 			"first": "หน้าแรก",
+			// 			"last": "สุดท้าย",
+			// 			"next": "ต่อไป",
+			// 			"previous": "ย้อนกลับ"
+			// 		}
+			// 	}
+			// })
 			// .columns().every(function () {
 			// 	var that = this;
 
@@ -490,6 +490,8 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 				$('#keeper_no_as_security').toggle()
 				$('#vehicles_forget_key_security_id').val("").change();
 		})
+
+		
 	</script>
 </body>
 

@@ -14,6 +14,8 @@ class Accidents extends CI_Controller
 
         $this->load->library('Date_libs');
         $this->load->library('FilterBarChartData');
+        $this->load->library('UploadImages');
+
     }
 
     private $head_topic_label           = 'สถิติอุบัติเหตุ';
@@ -43,7 +45,7 @@ class Accidents extends CI_Controller
           'accidents.status !=' => 'disabled',
         );
         if($this->session->userdata['roles'] == 'security'){
-            $qstr['recoder']  = $this->session->userdata['id'];
+            $qstr['recorder']  = $this->session->userdata['id'];
         }
         $results = $this->Accidents_model->all($qstr);
 
@@ -53,7 +55,8 @@ class Accidents extends CI_Controller
         $data['fields'] = $results['fields'];
         $data['content'] = 'accidents_table';
 
-        // echo "<pre>", print_r($results); exit();
+        
+
         $this->load->view('template_layout', $data);
     }
 
@@ -88,15 +91,33 @@ class Accidents extends CI_Controller
        
         $data['accident_participate'] = $accident_participate['results'];
         
-        $data['content'] = 'accidents_form_store';
+        $query = $this->db->select('*')
+                ->where(['accidents_id', $data['accident_id'], 'status' => 'active'])->get('accident_asset_affair_detroyed');
         
-        // echo "<pre>", print_r($data); exit();
+        $data['accident_asset_destroyed']['data'] =  $query->result_array();
+        $data['accident_asset_destroyed']['numrows'] =   $query->num_rows();
+        
+        $query2 = $this->db->select('*')
+            ->where(array('image_category'=>'accd', 'category_id' => $id))->get('images');
+
+        $data['images']['images'] =  $query2->result_array();
+        $data['images']['numrows'] =   $query2->num_rows();
+        $status = 'main_info';
+        if($this->session->flashdata('status') == 'upload_images'){
+            $status = 'upload_images';
+        }
+        
+        $this->session->set_userdata('status',$status);
+
+        $data['content'] = 'accidents_form_store';
+       
         $this->load->view('template_layout', $data);
     }
 
     public function store()
     {
         $inputs = $this->input->post();
+        // echo "<pre>", print_r($inputs); exit();
 
         $inputs['accident_date'] = $this->date_libs->set_date_th($inputs['accident_date']);
         if (isset($inputs['chk_place']) && $inputs['chk_place'] == 'checked_new_place') {
@@ -109,7 +130,7 @@ class Accidents extends CI_Controller
 
         unset($inputs['chk_place'], $inputs['place_text'], $inputs['chk_accident_cause'], $inputs['accident_cause_text']);
         if($this->session->userdata['roles'] == 'security'){
-            $inputs['recoder']  = $this->session->userdata['id'];
+            $inputs['recorder']  = $this->session->userdata['id'];
         }
                 // echo "<pre>", print_r($inputs); exit();
 
@@ -128,7 +149,6 @@ class Accidents extends CI_Controller
 
     public function store_participate() {
         $inputs = $this->input->post();
-                // echo "<pre>", print_r($inputs); exit();
 
         
         $results = $this->Accidents_participate_model->store($inputs);
@@ -141,6 +161,18 @@ class Accidents extends CI_Controller
         $this->session->set_flashdata('alert_message', $alert_message);
 
         redirect('accidents/form_store/'.$inputs['accident_id']);
+    }
+
+    public function store_image(){
+        $inputs = $this->input->post();
+        $arr = [
+            'file' => $_FILES,
+            'image_category' =>  'accd',
+            'category_id' =>  $inputs['category_id'],
+        ];
+        $this->uploadimages->store_images($arr);
+        $this->session->set_userdata('status','upload_images');
+        redirect('accidents/form_store/'.$inputs['category_id']);
     }
 
     private function create_new_place($inputs) {
@@ -204,6 +236,16 @@ class Accidents extends CI_Controller
         redirect('accidents');
     }
 
+    public function inactive(){
+        $inputs = $this->input->post();
+
+        $this->db->set('status', 'inactive');
+        $this->db->where('id', $inputs['id']);
+        $this->db->update('accident_asset_affair_detroyed');
+        echo $inputs['id'];
+
+    }
+
     public function remove_participate() {
         $accident_id = $this->uri->segment(3);
         $id = $this->uri->segment(4);
@@ -218,5 +260,31 @@ class Accidents extends CI_Controller
         $this->session->set_flashdata('alert_message', $alert_message);
         $redirect_page = 'accidents/form_store/';
         redirect($redirect_page.$accident_id);
+    }
+
+    public function delete_raw_image(){
+         $inputs = $this->input->post();
+        $query = $this->db->where(['id' =>$inputs['id']])->get('images');
+        $delete_image = $query->result_array();
+        $delete_image['num_rows'] = $query->num_rows();
+        $str ='';
+        if($delete_image['num_rows'] > 0){
+            unlink(FCPATH.'uploads/'.$delete_image[0]['image_path']);
+            $this->db->where('id', $inputs['id'])->delete('images');
+            $query = $this->db->get('images');
+            $current_images = $query->result_array();
+            // print_r($current_images);
+            foreach($current_images as $key => $image){
+                $str.='
+                    <div class="col-sm-6">
+                        <img src="'.base_url()."uploads/".$image["image_path"].'" width="450">
+                        <a href="javascript:delete_raw_image('.$image["id"].')" class="btn btn-danger">ลบ</a>
+                    </div>
+                ';
+            }
+        }
+        echo $str;
+        // echo $delete_image['num_rows'];
+        // echo $input['id'];
     }
 }
