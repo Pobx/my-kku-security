@@ -12,7 +12,7 @@
                     <div class="col-sm-1"><a href="javascript:append_upload_image(0)" class="btn btn-info sm" id="append_file_form_0" style="display:''"><b>+</b></a></div>
                     <div class="col-sm-1"><a href="javascript:delete_upload_image(0)" class="btn btn-danger sm" id="del_file_form_0" style="display:none"><b>-</b></a></div>
                     <div class="col-sm-5">
-						<img src="" class="image_responsive" id="temp_image_0">
+						<img src="" class="img-responsive" id="temp_image_0">
 					</div>
 				</div>
                 <!-- append form อัพโหลด รูป -->

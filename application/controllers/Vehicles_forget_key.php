@@ -25,7 +25,7 @@ class Vehicles_forget_key extends CI_Controller
     private $header_sub_topic_label_owner_assets = 'ข้อมูลเจ้าของทรัพย์สิน';
     private $header_sub_topic_label_detective = 'ข้อมูลผู้ตรวจพบ';
     
-    private $header_columns             = array('วันที่', 'ชื่อ - สกุล', 'สังกัดหน่วยงาน', 'อายุ(ปี)', 'เบอร์ติดต่อ', 'สถานที่ลืมกุญแจ', 'สถานะ', 'แก้ไข', 'ลบ');
+    private $header_columns             = array('วันที่', 'ชื่อ - สกุล', 'สังกัดหน่วยงาน', 'อายุ(ปี)', 'เบอร์ติดต่อ', 'สถานที่ลืมกุญแจ', 'สถานะ', 'ดูข้อมูล', 'แก้ไข', 'ลบ');
     private $header_columns_detective   = array('ชื่อ - สกุล', 'สังกัดหน่วยงาน','หมายเหตุ', 'ลบ');
     private $success_message            = 'บันทึกข้อมูลสำเร็จ';
     private $warning_message            = 'ไม่สามารถทำรายการ กรุณลองใหม่อีกครั้ง';
@@ -43,7 +43,10 @@ class Vehicles_forget_key extends CI_Controller
           'YEAR(vehicles_forget_key.date_forget_key)'=>date('Y'),
           'vehicles_forget_key.status !=' => 'disabled'
         );
-        
+
+        if($this->session->userdata['roles'] == 'security'){
+            $qstr['recorder']  = $this->session->userdata['id'];
+        }
         $results = $this->Vehicles_forget_key_model->all($qstr);
         $data['results'] = $results['results'];
 
