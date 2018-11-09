@@ -15,6 +15,8 @@ class Vehicles_forget_key extends CI_Controller
         
         $this->load->library('Date_libs');
         $this->load->library('FilterBarChartData');
+        $this->load->library('UploadImages');
+
     }
 
     private $head_topic_label           = 'สถิติการลืมกุญแจ';
@@ -56,6 +58,8 @@ class Vehicles_forget_key extends CI_Controller
     public function form_store()
     {
         $id = $this->uri->segment(3);
+        $inputs = $this->input->post();
+
 
         $data = $this->find($id);
         $data['vehicles_forget_key_id'] = $id;
@@ -83,6 +87,12 @@ class Vehicles_forget_key extends CI_Controller
         $qstr_key_keeper = array('roles' => 'security');
         $results_key_keeper = $this->Users_model->all($qstr_key_keeper);
         $data['key_keeper'] = $results_key_keeper['results'];
+
+        $query2 = $this->db->select('*')
+            ->where(array('image_category'=>'accd', 'category_id' => $id))->get('images');
+
+        $data['images']['images'] =  $query2->result_array();
+        $data['images']['numrows'] =   $query2->num_rows();
         
 
         $data['content'] = 'vehicles_forget_key_form_store';
@@ -96,13 +106,26 @@ class Vehicles_forget_key extends CI_Controller
     public function store()
     {
         $inputs = $this->input->post();
+        // echo "<pre>",print_r($_FILES); print_r($inputs); exit();
+
         if (isset($inputs['chk_place']) && $inputs['chk_place'] == 'checked_new_place') {
           $inputs['vehicles_forget_key_place_id'] = $this->create_new_place($inputs);
         }
 
         $inputs['date_forget_key'] = $this->date_libs->set_date_th($inputs['date_forget_key']);
         unset($inputs['chk_place'], $inputs['place_text']);
-        $results = $this->Vehicles_forget_key_model->store($inputs);
+        // $results = $this->Vehicles_forget_key_model->store($inputs);
+
+        //บันทึกรูป ถ้ามี
+        if(count($_FILES) > 0){
+            $arr = [
+                'file' => $_FILES,
+                'image_category' =>  'vh-fg-k',
+                'category_id' =>  $results['lastID'],
+            ];
+            // $this->uploadimages->store_images($arr);
+
+        }
        
         $alert_type = ($results['query'] ? 'success' : 'warning');
         $alert_icon = ($results['query'] ? 'check' : 'warning');
@@ -180,17 +203,18 @@ class Vehicles_forget_key extends CI_Controller
       redirect($redirect_page.$vehicles_forget_key_id);
   }
 
-  public function store_detective() {
-    $inputs = $this->input->post();
-    $results = $this->Vehicles_forget_key_detective_model->store($inputs);
+    public function store_detective() {
+        $inputs = $this->input->post();
+        $results = $this->Vehicles_forget_key_detective_model->store($inputs);
 
-    $alert_type = ($results['query'] ? 'success' : 'warning');
-    $alert_icon = ($results['query'] ? 'check' : 'warning');
-    $alert_message = ($results['query'] ? $this->success_message : $this->warning_message);
-    $this->session->set_flashdata('alert_type', $alert_type);
-    $this->session->set_flashdata('alert_icon', $alert_icon);
-    $this->session->set_flashdata('alert_message', $alert_message);
+        $alert_type = ($results['query'] ? 'success' : 'warning');
+        $alert_icon = ($results['query'] ? 'check' : 'warning');
+        $alert_message = ($results['query'] ? $this->success_message : $this->warning_message);
+        $this->session->set_flashdata('alert_type', $alert_type);
+        $this->session->set_flashdata('alert_icon', $alert_icon);
+        $this->session->set_flashdata('alert_message', $alert_message);
 
-    redirect('vehicles_forget_key/form_store/'.$inputs['vehicles_forget_key_id']);
-}
+        redirect('vehicles_forget_key/form_store/'.$inputs['vehicles_forget_key_id']);
+    }
+    
 }

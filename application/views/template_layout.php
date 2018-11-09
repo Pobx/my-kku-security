@@ -30,6 +30,9 @@ if (!isset($sess_userprofile['logged']) || $sess_userprofile['logged'] == false)
 	<link rel="stylesheet" href="<?php echo base_url('bower_components/select2/dist/css/select2.min.css'); ?>">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="<?php echo base_url('dist/css/AdminLTE.min.css'); ?>">
+
+	<link rel="stylesheet" href="<?php echo base_url('dist/css/my.css'); ?>">
+
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="<?php echo base_url('dist/css/skins/_all-skins.min.css'); ?>">
@@ -303,7 +306,7 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 	<script src="<?php echo base_url('assets/demo/dashboard_admin_bar_chart_monthly.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/demo/piechart.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/demo/barchart.js'); ?>"></script>
-
+	
 
 	<!-- AdminLTE App -->
 	<script src="<?php echo base_url('dist/js/adminlte.min.js'); ?>"></script>
