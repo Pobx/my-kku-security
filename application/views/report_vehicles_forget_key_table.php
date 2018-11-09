@@ -44,9 +44,7 @@
 				<table class="table table-bordered table-striped mydataTable">
 					<thead>
 						<tr>
-							<?php foreach ($header_columns as $key => $value)
-{
-    ?>
+							<?php foreach ($header_columns as $key => $value){?>
 							<th class="text-center">
 								<?php echo $value; ?>
 							</th>
@@ -54,9 +52,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($results as $key => $value)
-{
-    ?>
+						<?php foreach ($results as $key => $value){?>
 
 						<tr>
 							<td class="text-center">
@@ -77,19 +73,18 @@
 							<td>
 								<?php echo $value['owner_assets_forget_key_place']; ?>
 							</td>
+							<td>
+							<?php
+								$query = $this->db->where('id', $value['detective_name'])->get('users');
+								$detective = $query->result_array();
+								echo $detective[0]['name']; 
+							?>
+						</td>
 						</tr>
 						<?php }?>
 
 					</tbody>
-					<tfoot>
-						<?php foreach ($header_columns as $key => $value)
-{
-    ?>
-						<th class="text-center">
-							<?php echo $value; ?>
-						</th>
-						<?php }?>
-					</tfoot>
+
 				</table>
 
 			</div>

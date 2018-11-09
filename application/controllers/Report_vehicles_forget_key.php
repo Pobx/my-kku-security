@@ -16,7 +16,7 @@ class Report_vehicles_forget_key extends CI_Controller
 
     private $head_topic_label           = 'สถิติการลืมกุญแจ';
     private $head_sub_topic_label_table = 'รายงาน สถิติการลืมกุญแจ';
-    private $header_columns             = array('วันที่', 'ชื่อ - สกุล', 'สังกัดหน่วยงาน', 'อายุ(ปี)', 'เบอร์ติดต่อ', 'สถานที่ลืมกุญแจ');
+    private $header_columns             = array('วันที่', 'ชื่อ - สกุล เจ้าของกุญแจ', 'สังกัดหน่วยงาน', 'อายุ(ปี)', 'เบอร์ติดต่อ', 'สถานที่ลืมกุญแจ','ผู้พบกุญแจ');
     private $header_excel_monthly_summary_columns = array('ลำดับ', 'สถานที่', 'จำนวน(ครั้ง)');
 
     public function index()

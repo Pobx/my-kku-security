@@ -117,7 +117,6 @@ class Accidents extends CI_Controller
     public function store()
     {
         $inputs = $this->input->post();
-        // echo "<pre>", print_r($inputs); exit();
 
         $inputs['accident_date'] = $this->date_libs->set_date_th($inputs['accident_date']);
         if (isset($inputs['chk_place']) && $inputs['chk_place'] == 'checked_new_place') {
@@ -135,6 +134,7 @@ class Accidents extends CI_Controller
                 // echo "<pre>", print_r($inputs); exit();
 
         $results = $this->Accidents_model->store($inputs);
+        // echo "<pre>", print_r($inputs); exit();
 
         $alert_type = ($results['query'] ? 'success' : 'warning');
         $alert_icon = ($results['query'] ? 'check' : 'warning');

@@ -53,7 +53,7 @@
 					<div id="menu1" class="tab-pane fade <?php echo  $this->session->userdata('status') == 'main_info' ? 'active in' : '';?>">
 							<div class="box box-warning box-solid">
 								<div class="box-header with-border">
-									<h3 class="box-title">อัพโหลดรูปภาพ</h3>
+									<h3 class="box-title">ข้อมูลการเกิดอุบัติเหตุ</h3>
 								</div>
 								<div class="box-body">
 									<?php
@@ -203,7 +203,7 @@
 				<div class="col-sm-1"><a href="javascript:append_upload_image(`+id+`)" class="btn btn-info sm" id="append_file_form_`+id+`" style="display:''"><b>+</b></a></div>
 				<div class="col-sm-1"><a href="javascript:delete_upload_image(`+id+`)" id="del_file_form_`+id+`" class="btn btn-danger sm" style="display:none"><b>-</b></a></div>
 				<div class="col-sm-5">
-								<img src="" class="image_responsive" id="temp_image_`+id+`">
+								<img src="" class="img-responsive" id="temp_image_`+id+`">
 							</div>
 			</div></div>
 			`;

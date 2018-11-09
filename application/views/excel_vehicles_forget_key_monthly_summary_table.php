@@ -41,12 +41,5 @@ foreach ($results as $key => $value)
 		</tr>
 		<?php }?>
 	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="2" align="right">รวมทั้งหมด</td>
-			<td>
-				<?php echo $total; ?>
-			</td>
-		</tr>
-	</tfoot>
+	
 </table>

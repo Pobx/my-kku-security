@@ -40,6 +40,8 @@ class Vehicles_forget_key_model extends CI_Model
         ELSE ""
       END
     ) AS status_name,
+    recorder,
+    vehicles_forget_key_detective.name as detective_name
     ';
 
     public function all($qstr = '')
@@ -52,6 +54,7 @@ class Vehicles_forget_key_model extends CI_Model
 
         $query = $this->db->select($this->items)->from($this->table)
         ->join('vehicles_forget_key_place', 'vehicles_forget_key_place.id = vehicles_forget_key.vehicles_forget_key_place_id', 'left')
+        ->join('vehicles_forget_key_detective', 'vehicles_forget_key_detective.vehicles_forget_key_id = vehicles_forget_key.vehicles_forget_key_place_id' )
         ->get();
 
         $results['results'] = $query->result_array();

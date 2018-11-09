@@ -41,7 +41,12 @@
 </li>
 
 <li id="redbox">
-	<a href="<?php echo site_url('redbox'); ?>"><i class="fa fa-inbox"></i> <span>สถิติกล่องแดง</span></a>
+	<?php if($this->session->userdata['roles'] == 'security'){ ?>
+		<a href="<?php echo site_url('redbox_security_only/form_store'); ?>"><i class="fa fa-inbox"></i> <span>สถิติกล่องแดง</span></a>
+
+	<?php }else{ ?>
+		<a href="<?php echo site_url('redbox'); ?>"><i class="fa fa-inbox"></i> <span>สถิติกล่องแดง</span></a>
+	<?php } ?> 
 </li>
 
 <li id="student_do_not_wear_helmet">

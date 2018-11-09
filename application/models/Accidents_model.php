@@ -159,6 +159,8 @@ class Accidents_model extends CI_Model
             $inputs['created'] = date('Y-m-d H:i:s');
           
             // $results['query'] = $this->db->insert($this->table, $inputs);
+                        // echo "<pre>", print_r($inputs); exit();
+
             $myinputs = array(
                 'accident_date' => $inputs['accident_date'],
                 'accident_time' => $inputs['accident_time'],
@@ -169,7 +171,7 @@ class Accidents_model extends CI_Model
                 'assets_amount' => 0,
                 'assets_remark' => $inputs['assets_remark'],
                 'status' => $inputs['status'],
-                'recorder' => $inputs['recorder'],
+                'recorder' => $this->session->userdata('id'),//$inputs['recorder'],
                 'created' => date('Y-m-d H:i:s'),
 
             );

@@ -43,16 +43,15 @@ set_time_limit(0);
 						<td>
 							<?php echo $value['owner_assets_forget_key_place']; ?>
 						</td>
+						<td>
+							<?php
+								$query = $this->db->where('id', $value['detective_name'])->get('users');
+								$detective = $query->result_array();
+								echo $detective[0]['name']; 
+							?>
+						</td>
 					</tr>	
 		<?php }?>
 	</tbody>
-	<tfoot>
-		<?php foreach ($header_columns as $key => $value)
-{
-    ?>
-		<th>
-			<?php echo $value; ?>
-		</th>
-		<?php }?>
-	</tfoot>
+	
 </table>

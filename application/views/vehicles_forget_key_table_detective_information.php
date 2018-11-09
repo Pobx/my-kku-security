@@ -27,9 +27,7 @@
 			<table class="table table-bordered table-striped mydataTable">
 				<thead>
 					<tr>
-						<?php foreach ($header_columns_detective as $key => $value)
-{
-    ?>
+						<?php foreach ($header_columns_detective as $key => $value){?>
 						<th class="text-center">
 							<?php echo $value; ?>
 						</th>
@@ -37,12 +35,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($vehicles_forget_key_detective as $key => $value)
-{
-    ?>
+					<?php foreach ($vehicles_forget_key_detective as $key => $value){?>
 					<tr>
 						<td class="text-center">
-							<?php echo $value['name']; ?>
+							<?php 
+								$query = $this->db->where(['id' => $value['name']])->get('users');
+								$detective = $query->result_array();
+
+								echo $detective[0]['name']; 
+							?>
 						</td>
 
 						<td class="text-center">
@@ -62,15 +63,6 @@
 					</tr>
 					<?php }?>
 				</tbody>
-				<tfoot>
-					<?php foreach ($header_columns_detective as $key => $value)
-{
-    ?>
-					<th class="text-center">
-						<?php echo $value; ?>
-					</th>
-					<?php }?>
-				</tfoot>
 			</table>
 
 		</div>

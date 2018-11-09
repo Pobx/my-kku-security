@@ -52,7 +52,7 @@ class Redbox extends CI_Controller
         $sess_data = $this->session->userdata();
         $id = $this->uri->segment(3);
         $data = $this->find($id);
-        $qstr_redbox_place = array('status'=>'active');
+        $qstr_redbox_place = array('redbox_place.status'=>'active');
         $results_redbox_place = $this->Redbox_place_model->all($qstr_redbox_place);
        
         $data['results_redbox_place'] = $results_redbox_place['results'];
