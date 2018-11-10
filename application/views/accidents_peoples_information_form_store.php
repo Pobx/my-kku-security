@@ -1,5 +1,5 @@
 <div class="form-group">
-	<label class="col-sm-2 control-label">ประเภทผู้ประสบเหตุ</label>
+	<label class="col-sm-3 control-label">ประเภทผู้ประสบเหตุ</label>
 
 	<div class="col-sm-4">
 		<label>
@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-2 control-label">ประเภทบุคคล</label>
+	<label class="col-sm-3 control-label">ประเภทบุคคล</label>
 
 	<div class="col-sm-6">
 		<label>

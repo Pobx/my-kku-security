@@ -92,17 +92,18 @@ class Vehicles_forget_key extends CI_Controller
         $data['key_keeper'] = $results_key_keeper['results'];
 
         $query2 = $this->db->select('*')
-            ->where(array('image_category'=>'accd', 'category_id' => $id))->get('images');
+            ->where(array('image_category'=>'vh-fg-k', 'category_id' => $id))->get('images');
 
         $data['images']['images'] =  $query2->result_array();
         $data['images']['numrows'] =   $query2->num_rows();
         
+        $this->session->set_flashdata('tab_status', 'vhk_form_main_info');
 
         $data['content'] = 'vehicles_forget_key_form_store';
         
         $qstr = array('status'=>'active');
         $data['users'] = $this->Users_model->all($qstr);
-        // echo "<pre>", print_r($data['users']); exit();
+        // echo "<pre>", print_r($data['images']['images']); exit();
         $this->load->view('template_layout', $data);
     }
 
@@ -117,7 +118,7 @@ class Vehicles_forget_key extends CI_Controller
 
         $inputs['date_forget_key'] = $this->date_libs->set_date_th($inputs['date_forget_key']);
         unset($inputs['chk_place'], $inputs['place_text']);
-        // $results = $this->Vehicles_forget_key_model->store($inputs);
+        $results = $this->Vehicles_forget_key_model->store($inputs);
 
         //บันทึกรูป ถ้ามี
         if(count($_FILES) > 0){
@@ -126,7 +127,7 @@ class Vehicles_forget_key extends CI_Controller
                 'image_category' =>  'vh-fg-k',
                 'category_id' =>  $results['lastID'],
             ];
-            // $this->uploadimages->store_images($arr);
+            $this->uploadimages->store_images($arr);
 
         }
        
@@ -136,7 +137,7 @@ class Vehicles_forget_key extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
-
+        $this->session->set_flashdata('tab_status', 'vhk_form_main_info');
         // redirect('vehicles_forget_key');
         redirect('vehicles_forget_key/form_store/'.$results['lastID']);
     }
@@ -202,6 +203,7 @@ class Vehicles_forget_key extends CI_Controller
       $this->session->set_flashdata('alert_type', $alert_type);
       $this->session->set_flashdata('alert_icon', $alert_icon);
       $this->session->set_flashdata('alert_message', $alert_message);
+      $this->session->set_flashdata('tab_status', 'vhk_form_detective');
       $redirect_page = 'vehicles_forget_key/form_store/';
       redirect($redirect_page.$vehicles_forget_key_id);
   }
@@ -216,8 +218,25 @@ class Vehicles_forget_key extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
+        $this->session->set_flashdata('tab_status', 'vhk_form_detective');
 
         redirect('vehicles_forget_key/form_store/'.$inputs['vehicles_forget_key_id']);
+    }
+
+    public function upload_images(){
+        //บันทึกรูป ถ้ามี
+        if(count($_FILES) > 0){
+            $arr = [
+                'file' => $_FILES,
+                'image_category' =>  'vh-fg-k',
+                'category_id' =>  $this->input->post('id'),
+            ];
+            $this->uploadimages->store_images($arr);
+
+        }
+        $this->session->set_flashdata('tab_status', 'vhk_form_images');
+        redirect('vehicles_forget_key/form_store/'.$this->input->post('id'));
+
     }
     
 }

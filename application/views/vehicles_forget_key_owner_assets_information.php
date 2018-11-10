@@ -1,3 +1,4 @@
+<div class="callout callout-info">
 <div class="row">
 	<div class="form-group col-md-4">
 	<!-- <php $this->load->view('period_times');?> -->
@@ -42,8 +43,9 @@
 		</div>
 	</div>
 </div>
+</div>
 
-
+<div class="callout callout-info">
 <div class="row">
 	<div class="form-group col-md-6">
 		<label for="owner_assets_name" class="col-sm-4 control-label">ชื่อ&nbsp;-&nbsp;สกุล</label>
@@ -64,8 +66,9 @@
 	</div>
 
 </div>
+</div>
 
-
+<div class="callout callout-info">
 <div class="row">
 	<div class="form-group col-md-6">
 		<label for="owner_assets_age" class="col-sm-4 control-label">อายุ(ปี)</label>
@@ -84,7 +87,9 @@
 	</div>
 
 </div>
+</div>
 
+<div class="callout callout-info">
 <div class="row">
 	<div class="form-group">
 		<label for="owner_assets_forget_key_place" class="col-sm-2 control-label">สถานที่ลืม</label>
@@ -107,42 +112,9 @@
 		</div>
 	</div>
 </div>
+</div>
 
-
-<!-- <div class="form-group">
-	<label for="owner_assets_forget_key_place" class="col-sm-2 control-label">ผู้ที่เก็บได้</label>
-
-	<div class="col-sm-4">
-		<select class="form-control select2" name="vehicles_forget_key_security_id" style="display:block" id="vehicles_forget_key_security_id">
-			<option value="">เลือก</option>
-			<php foreach ($key_keeper as $key => $val) {?>
-			<option value="<php echo $val['id'];?>">
-				<php echo $val['name'];?>
-			</option>
-			<php }?>
-		</select>
-		
-	</div>
-
-	
-</div> -->
-<!-- <div class="form-group">
-	<label for="owner_assets_forget_key_place" class="col-sm-2 control-label">&nbsp;</label>
-	<div class="col-sm-4">
-		<div class="row">
-				<div class="col-sm-3">
-					<input type="checkbox"  name="chk_keeper" id="chk_keeper">บุคคลอื่น
-				</div>
-				<div class="col-sm-9">
-					<input type="text" name="keeper_no_as_security" id="keeper_no_as_security" 
-						placeholder="ใส่ชื่อผู้ที่เก็บได้ที่ไม่ใช่เจ้าที่ รปภ." class="form-control" style="display:none">
-
-				</div>
-		</div>
-		
-	</div>
-</div> -->
-
+<div class="callout callout-info">
 <div class="row">
 	<div class="form-group col-md-6">
 		<label class="col-sm-4 control-label">ประเภทยานพาหนะ</label>
@@ -164,7 +136,9 @@
 		</div>
 	</div>
 </div>
+</div>
 
+<div class="callout callout-info">
 <div class="row">
 	<div class="form-group col-md-3">
 		<label for="brand" class="col-sm-4 control-label">ยี่ห้อ</label>
@@ -210,4 +184,4 @@
 		</div>
 	</div>
 </div>
-
+</div>

@@ -111,7 +111,6 @@
 
 	<?php } ?>
 	<div id="append_assets_name"></div>
-
 	<div class="form-group">
 	<label for="assets_remark" class="col-sm-2 control-label">หมายเหตุ</label>
 

@@ -25,15 +25,15 @@
 				<div class="process">
 					<div class="process-row nav nav-tabs">
 						<div class="process-step">
-							<button type="button" class="btn  btn-circle <?php echo  $this->session->userdata('status') == 'main_info' ? 'btn-info' : 'btn-default';?>"  data-toggle="tab" href="#menu1"><i class="fa fa-info fa-3x"></i></button>
+							<button type="button" class="btn  btn-circle <?php echo  $this->session->userdata('tab_status') == 'vhk_form_main_info' ? 'btn-info' : 'btn-default';?>"  data-toggle="tab" href="#menu1"><i class="fa fa-info fa-3x"></i></button>
 							<p><small>ข้อมูล<br />ผู้ลืมกุญแจ</small></p>
 						</div>
 						<div class="process-step">
-							<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu2"><i class="fa fa-file-text-o fa-3x"></i></button>
+							<button type="button" class="btn  btn-circle <?php echo  $this->session->userdata('tab_status') == 'vhk_form_detective' ? 'btn-info' : 'btn-default';?>" data-toggle="tab" href="#menu2"><i class="fa fa-file-text-o fa-3x"></i></button>
 							<p><small>ข้อมูล<br />ผู้เก็บกุญแจได้</small></p>
 						</div>
 						<div class="process-step">
-							<button type="button" class="btn  btn-circle  <?php echo  $this->session->userdata('status') == 'upload_file' ? 'btn-info' : 'btn-default';?>" data-toggle="tab" href="#menu3"><i class="fa fa-image fa-3x"></i></button>
+							<button type="button" class="btn  btn-circle  <?php echo  $this->session->userdata('tab_status') == 'vhk_form_images' ? 'btn-info' : 'btn-default';?>" data-toggle="tab" href="#menu3"><i class="fa fa-image fa-3x"></i></button>
 							<p><small>อัพโหลด<br />รูปภาพ</small></p>
 						</div>
 						<!-- <div class="process-step">
@@ -47,7 +47,7 @@
 
 			<div class="tab-content">
 				<!-- <form class="form-horizontal form_submit_data"> -->
-				<div id="menu1" class="tab-pane fade <?php echo  $this->session->userdata('status') == 'main_info' ? 'active in' : '';?>">
+				<div id="menu1" class="tab-pane fade <?php echo  $this->session->userdata('tab_status') == 'vhk_form_main_info' ? 'active in' : '';?>">
 					<?php $this->load->view('header_form_submit_data');?>
 						<div class="box-header"></div>
 						<div class="box-body">
@@ -63,7 +63,7 @@
 					</form>
 				</div>
 
-				<div id="menu2" class="tab-pane fade <?php echo  $this->session->userdata('status') == 'main_info' ? 'active in' : '';?>">
+				<div id="menu2" class="tab-pane fade <?php echo  $this->session->userdata('tab_status') == 'vhk_form_detective' ? 'active in' : '';?>">
 
 					<?php 
 						if ($id != '') {
@@ -73,8 +73,18 @@
 					?>
 				</div>
 
-				<div id="menu3" class="tab-pane fade">
-					<?php $this->load->view('upload_images'); ?>
+				<div id="menu3" class="tab-pane fade <?php echo  $this->session->userdata('tab_status') == 'vhk_form_images' ? 'active in' : '';?>">
+					<?php 
+						if ($id != '') {
+							echo form_open_multipart('vehicles_forget_key/upload_images');	
+						?>
+							<input type="hidden" name="id" value="<?php echo $id; ?>">
+
+					<?php 
+							$this->load->view('upload_images', array('images' =>$images)); 
+						}
+					?>
+					</form>
 				</div>
 			</div><!-- tab-content -->
 		</div>

@@ -41,6 +41,43 @@ class Vehicles_forget_key_model extends CI_Model
       END
     ) AS status_name,
     recorder,
+    ';
+
+    private $items2 = '
+    vehicles_forget_key.id,
+    period_time,
+    people_type,
+    date_forget_key AS date_forget_key_en,
+    DATE_FORMAT(DATE_ADD(date_forget_key, INTERVAL 543 YEAR),"%d/%m/%Y") as date_forget_key,
+    owner_assets_name,
+    owner_assets_department,
+    owner_assets_age,
+    owner_assets_phone,
+    vehicles_forget_key_place_id,
+    vehicles_forget_key_place.name AS owner_assets_forget_key_place,
+    car_type,
+    (
+      CASE 
+        WHEN car_type = "car" THEN "รถยนต์"
+        WHEN car_type = "motorcycle" THEN "รถจักรยานยนต์"
+        ELSE ""
+      END
+    ) AS car_type_name,
+    model,
+    brand,
+    color,
+    license_plate,
+    car_state,
+    state_comment,
+    vehicles_forget_key.status,
+    (
+      CASE 
+        WHEN vehicles_forget_key.status = "active" THEN "ACTIVE"
+        WHEN vehicles_forget_key.status = "disabled" THEN "ลบรายการ"
+        ELSE ""
+      END
+    ) AS status_name,
+    recorder,
     vehicles_forget_key_detective.name as detective_name
     ';
 
@@ -52,10 +89,18 @@ class Vehicles_forget_key_model extends CI_Model
             $this->db->where($qstr);
         }
 
-        $query = $this->db->select($this->items)->from($this->table)
-        ->join('vehicles_forget_key_place', 'vehicles_forget_key_place.id = vehicles_forget_key.vehicles_forget_key_place_id', 'left')
-        ->join('vehicles_forget_key_detective', 'vehicles_forget_key_detective.vehicles_forget_key_id = vehicles_forget_key.vehicles_forget_key_place_id' )
-        ->get();
+       
+        // if($query2->num_rows()> 0){ 
+            $query = $this->db->select($this->items)->from($this->table)
+                ->join('vehicles_forget_key_place', 'vehicles_forget_key_place.id = vehicles_forget_key.vehicles_forget_key_place_id', 'left')
+                ->join('vehicles_forget_key_detective', 'vehicles_forget_key_detective.vehicles_forget_key_id = vehicles_forget_key.vehicles_forget_key_place_id', 'left' )
+                ->get();
+        // }else{
+        //     $query = $this->db->select($this->items)->from($this->table)
+        //         ->join('vehicles_forget_key_place', 'vehicles_forget_key_place.id = vehicles_forget_key.vehicles_forget_key_place_id', 'left')
+        //         ->get();
+        // }
+        
 
         $results['results'] = $query->result_array();
         $results['rows'] = $query->num_rows();
@@ -66,10 +111,12 @@ class Vehicles_forget_key_model extends CI_Model
 
     public function find($id)
     {
+      
         $query = $this->db->select($this->items)->from($this->table)->where('vehicles_forget_key.id', $id)
         ->join('vehicles_forget_key_place', 'vehicles_forget_key_place.id = vehicles_forget_key.vehicles_forget_key_place_id', 'left')
+        ->join('vehicles_forget_key_detective', 'vehicles_forget_key_detective.vehicles_forget_key_id = vehicles_forget_key.vehicles_forget_key_place_id', 'left' )
         ->get();
-
+        
         $results['rows'] = $query->num_rows();
         $results['results'] = $query->first_row();
         $results['fields'] = $query->list_fields();

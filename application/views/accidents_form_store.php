@@ -34,7 +34,7 @@
 							</div>
 							<div class="process-step">
 								<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu2"><i class="fa fa-file-text-o fa-3x"></i></button>
-								<p><small>ข้อมูล<br />ผู้ประกอบเหตู</small></p>
+								<p><small>ข้อมูล<br />ผู้เกี่ยวข้องกับเหตุการณ์</small></p>
 							</div>
 							<div class="process-step">
 								<button type="button" class="btn  btn-circle  <?php echo  $this->session->userdata('status') == 'upload_file' ? 'btn-info' : 'btn-default';?>" data-toggle="tab" href="#menu3"><i class="fa fa-image fa-3x"></i></button>
@@ -72,22 +72,25 @@
 				</div>
 				<div id="menu2" class="tab-pane fade">
 					
-					<?php
-						if ($id != '')
-						{
+					<?php if ($id != ''){
 							$this->load->view('accidents_participate_table_information');
 							$this->load->view('accidents_form_store_modal');
-						}
 					?>
-					<ul class="list-unstyled list-inline pull-right">
-						<li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
-						<li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
-					</ul>
+							<ul class="list-unstyled list-inline pull-right">
+								<li><button type="button" class="btn btn-default prev-step"><i class="fa fa-chevron-left"></i> Back</button></li>
+								<li><button type="button" class="btn btn-info next-step">Next <i class="fa fa-chevron-right"></i></button></li>
+							</ul>
+					<?php }?>
+					
 				</div>
 
 
 				<div id="menu3" class="tab-pane fade <?php echo  $this->session->userdata('status') == 'upload_images' ? 'active in' : '';?>">
-					<?php $this->load->view('accidents_upload_images'); ?>	
+					<?php 
+						if ($id != ''){
+							$this->load->view('accidents_upload_images'); 
+						}
+					?>	
 				</div>
 
 				<!-- <div id="menu4" class="tab-pane fade">
