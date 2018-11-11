@@ -38,7 +38,7 @@ class Break_homes extends CI_Controller
         $data['bar_chart_data'] = $this->filterbarchartdata->filter($results['results'], 'date_break_en');
 
         $data['content'] = 'break_homes_table';
-
+        $data['users_model'] = $this->Users_model;
         // echo "<pre>", print_r($data['results']); exit();
         $this->load->view('template_layout', $data);
     }

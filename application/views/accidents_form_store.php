@@ -23,7 +23,7 @@
 						'main_info' =>array(
 							'topic' => 'การเกิดอุบัติเหตุ'
 						),
-						'complainter' => $this->session->userdata('roles') == 'security' ? false : array(
+						'complainter' => array(
 							'topic' => 'ผู้เกี่ยวข้องกับเหตุการณ์'
 						),
 						'upload_image' => array(),

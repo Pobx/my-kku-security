@@ -11,7 +11,29 @@
             </div><!-- /.info-box-content -->
         </div>	<!-- /.info-box -->
 
-        
+        <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">ข้อมูลการรับเรื่องของเจ้าหน้าที่</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <strong><i class="fa fa-book margin-r-5"></i> เจ้าหน้าที่ผู้รับผิดชอบ</strong>
+                <?php
+                    $complainter = $users_model->find($bk_h_info['recorder']);
+                    echo '<p class="text-muted"> ' .$complainter['results']->name.'</p>';
+                ?>
+             
+              <hr>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> หมายเหตุ</strong>
+
+              <p class="text-muted"><?php echo $bk_h_info['remark'];?></p>
+
+              <hr>
+
+            </div>
+            <!-- /.box-body -->
+          </div><!-- box box-primary -->
     </div>
     <div class="col-md-4">
         <div class="box box-primary ">
@@ -35,7 +57,8 @@
                         <b>ความคืบหน้า</b> <a class="pull-right"><?php echo $bk_h_info['staff_process']; ?></a>
                     </li>
                     <li class="list-group-item">
-                        <b>ทรัพย์สินสูญหาย</b> <a class="pull-right"><?php echo $bk_h_info['assets_loses']; ?></a>
+                        <b>ทรัพย์สินสูญหาย</b> 
+                        <p class="text-muted"><a class="pull-right"><?php echo $bk_h_info['assets_loses']; ?></a></p>
                     </li>
                     
                 </ul>
@@ -86,7 +109,7 @@
     if($images_num_rows > 0){
 ?>
 
-        <div class="row">
+        <div class="row pad">
             <div class="box box-success box-solid mr-20 ml-20">
                 <div class="box-header with-border">
                     <h3 class="box-title">ภาพถ่ายเหตุการณ์</h3>

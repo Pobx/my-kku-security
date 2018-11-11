@@ -75,10 +75,10 @@ class Accidents_model extends CI_Model
             ->join('accident_place', 'accident_place.id = accidents.place', 'left')
             ->join('accident_cause', 'accident_cause.id = accidents.accident_cause', 'left')
             ->get();
-
         $results['results'] = $query->result_array();
         $results['rows'] = $query->num_rows();
         $results['fields'] = $query->list_fields();
+                        //  echo "<pre>", print_r($results['results']); exit();
 
         foreach ($results['results'] as $key => $value)
         {
@@ -194,7 +194,6 @@ class Accidents_model extends CI_Model
                 }
             }
             // echo "<pre>", print_r($inputs); exit();
-
         }
         else
         {
@@ -210,6 +209,7 @@ class Accidents_model extends CI_Model
             if(count($inputs['assets_name']) > 0){
                 foreach($inputs['assets_name'] as $key => $data){
                     $arr= array(
+                        'accidents_id' =>$results['lastID'],
                         'asset_name' => $data,
                         'asset_amount' => $inputs['assets_amount'][$key],
                     );

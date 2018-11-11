@@ -65,7 +65,7 @@
 		</li>
 
 		<li id="report_security_cards">
-			<a href="<?php echo site_url('report_security_cards'); ?>"><i class="fa fa-book"></i>ทะเบียนการจัดทําบัตร<br />ผ่านเข้า-ออก</a>
+			<a href="<?php echo site_url('report_security_cards'); ?>"><i class="fa fa-book"></i>จัดทําบัตรผ่านเข้า-ออก มหาลัย</a>
 		</li>
 
 		<li id="report_security_home">
