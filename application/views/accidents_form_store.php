@@ -14,44 +14,27 @@
 			<div class="box-header"></div>
 
 			<div class="box-body">
-				<style>
-					.process-step .btn:focus{outline:none}
-					.process{display:table;width:100%;position:relative}
-					.process-row{display:table-row}
-					.process-step button[disabled]{opacity:1 !important;filter: alpha(opacity=100) !important}
-					.process-row:before{top:40px;bottom:0;position:absolute;content:" ";width:100%;height:1px;background-color:#ccc;z-order:0}
-					.process-step{display:table-cell;text-align:center;position:relative}
-					.process-step p{margin-top:4px}
-					.btn-circle{width:80px;height:80px;text-align:center;font-size:12px;border-radius:50%}
 
-				</style>
-				<div class="row">
-					<div class="process">
-						<div class="process-row nav nav-tabs">
-							<div class="process-step">
-								<button type="button" class="btn  btn-circle <?php echo  $this->session->userdata('status') == 'main_info' ? 'btn-info' : 'btn-default';?>"  data-toggle="tab" href="#menu1"><i class="fa fa-info fa-3x"></i></button>
-								<p><small>ข้อมูล<br />การเกิดอุบัติเหตุ</small></p>
-							</div>
-							<div class="process-step">
-								<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu2"><i class="fa fa-file-text-o fa-3x"></i></button>
-								<p><small>ข้อมูล<br />ผู้เกี่ยวข้องกับเหตุการณ์</small></p>
-							</div>
-							<div class="process-step">
-								<button type="button" class="btn  btn-circle  <?php echo  $this->session->userdata('status') == 'upload_file' ? 'btn-info' : 'btn-default';?>" data-toggle="tab" href="#menu3"><i class="fa fa-image fa-3x"></i></button>
-								<p><small>อัพโหลด<br />รูปภาพ</small></p>
-							</div>
-							<!-- <div class="process-step">
-								<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu4"><i class="fa fa-cogs fa-3x"></i></button>
-								<p><small>บันทึก<br />ข้อมูลเรียบร้อย</small></p>
-							</div> -->
-						</div>
-					</div>
-				</div>
+
+				<?php 
+					$header_content = array(
+						'tab_status' => $this->session->flashdata('tab_status'),
+						'topic' => 'break_home',
+						'main_info' =>array(
+							'topic' => 'การเกิดอุบัติเหตุ'
+						),
+						'complainter' => $this->session->userdata('roles') == 'security' ? false : array(
+							'topic' => 'ผู้เกี่ยวข้องกับเหตุการณ์'
+						),
+						'upload_image' => array(),
+					);
+					$this->load->view('header_form_store', array('header_content' => $header_content));
+				?>
 
 
 				<div class="tab-content">
-					<div id="menu1" class="tab-pane fade <?php echo  $this->session->userdata('status') == 'main_info' ? 'active in' : '';?>">
-							<div class="box box-warning box-solid">
+					<div id="menu1" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'main_info' ? 'active in' : '';?>">
+							<div class="box box-info box-solid">
 								<div class="box-header with-border">
 									<h3 class="box-title">ข้อมูลการเกิดอุบัติเหตุ</h3>
 								</div>
@@ -70,7 +53,7 @@
 							</div>
 
 				</div>
-				<div id="menu2" class="tab-pane fade">
+				<div id="menu2" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'complainter' ? 'active in' : '';?>">
 					
 					<?php if ($id != ''){
 							$this->load->view('accidents_participate_table_information');
@@ -85,13 +68,14 @@
 				</div>
 
 
-				<div id="menu3" class="tab-pane fade <?php echo  $this->session->userdata('status') == 'upload_images' ? 'active in' : '';?>">
+				<div id="menu3" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'upload_images' ? 'active in' : '';?>">
 					<?php 
 						if ($id != ''){
 							$this->load->view('accidents_upload_images'); 
 						}
 					?>	
 				</div>
+
 
 				<!-- <div id="menu4" class="tab-pane fade">
 					<h3>Menu 4</h3>

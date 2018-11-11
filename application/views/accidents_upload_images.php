@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="box box-warning box-solid">
+	<div class="box box-info box-solid">
 		<div class="box-header with-border">
 			<h3 class="box-title">อัพโหลดรูปภาพ</h3>
 		</div>
@@ -21,7 +21,7 @@
                 </div>
                 <div class=form-group>
                     <input type="hidden" value="<?php echo $id; ?>" name="category_id">
-                    <button type="submit" class="btn btn-primary btn-lg  pull-right">บันทึก</button>
+                    <button type="submit" class="btn btn-primary   pull-right">บันทึก</button>
                 </div>
 								
 			</form>

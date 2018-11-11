@@ -14,6 +14,7 @@ class Accidents extends CI_Controller
 
         $this->load->library('Date_libs');
         $this->load->library('FilterBarChartData');
+        $this->load->model('Users_model');
         $this->load->library('UploadImages');
 
     }
@@ -53,6 +54,7 @@ class Accidents extends CI_Controller
         
         $data['bar_chart_data'] = $this->filterbarchartdata->filter($results['results'], 'accident_date_en');
         $data['fields'] = $results['fields'];
+        $data['users_model'] = $this->Users_model;
         $data['content'] = 'accidents_table';
 
         
@@ -63,6 +65,8 @@ class Accidents extends CI_Controller
     public function form_store()
     {
         $id = $this->uri->segment(3);
+        $from = $this->uri->segment(4);
+
         $data = $this->find($id); 
         $data['accident_id'] = $id;
         $data['head_topic_label'] = $this->head_topic_label;
@@ -76,10 +80,7 @@ class Accidents extends CI_Controller
         $qstr = array(
           'status ='=>'active'
         );
-        // if($this->session->userdata['roles'] == 'security'){
-        //     $qstr['recoder']  = $this->session->userdata['id'];
-        // }
-
+       
         $accident_place = $this->Accidents_place_model->all($qstr);
         $data['accident_place'] = $accident_place['results'];
 
@@ -90,13 +91,15 @@ class Accidents extends CI_Controller
         $accident_participate = $this->Accidents_participate_model->all($qstr);
        
         $data['accident_participate'] = $accident_participate['results'];
-        
         $query = $this->db->select('*')
-                ->where(['accidents_id', $data['accident_id'], 'status' => 'active'])->get('accident_asset_affair_detroyed');
+                ->where(['accidents_id'=> $data['accident_id'], 'status' => 'active'])->get('accident_asset_affair_detroyed');
         
         $data['accident_asset_destroyed']['data'] =  $query->result_array();
         $data['accident_asset_destroyed']['numrows'] =   $query->num_rows();
-        
+
+        $qstr = array('status'=>'active', 'roles' => 'security');
+        $data['users'] = $this->Users_model->all($qstr);
+
         $query2 = $this->db->select('*')
             ->where(array('image_category'=>'accd', 'category_id' => $id))->get('images');
 
@@ -106,8 +109,10 @@ class Accidents extends CI_Controller
         if($this->session->flashdata('status') == 'upload_images'){
             $status = 'upload_images';
         }
-        
-        $this->session->set_userdata('status',$status);
+        // echo "<pre>", print_r($data); exit();
+        if($from == 'index'){
+            $this->session->set_flashdata('tab_status','main_info');
+        }
 
         $data['content'] = 'accidents_form_store';
        
@@ -128,13 +133,11 @@ class Accidents extends CI_Controller
         }
 
         unset($inputs['chk_place'], $inputs['place_text'], $inputs['chk_accident_cause'], $inputs['accident_cause_text']);
-        if($this->session->userdata['roles'] == 'security'){
-            $inputs['recorder']  = $this->session->userdata['id'];
-        }
+        $inputs['recorder']  = $this->session->userdata('roles') == 'security' ? $this->session->userdata['id'] : $inputs['recorder'];
+        
                 // echo "<pre>", print_r($inputs); exit();
 
         $results = $this->Accidents_model->store($inputs);
-        // echo "<pre>", print_r($inputs); exit();
 
         $alert_type = ($results['query'] ? 'success' : 'warning');
         $alert_icon = ($results['query'] ? 'check' : 'warning');
@@ -142,6 +145,7 @@ class Accidents extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
+        $this->session->set_flashdata('tab_status', 'main_info');
 
         // redirect('accidents');
         redirect('accidents/form_store/'.$results['lastID']);
@@ -159,6 +163,7 @@ class Accidents extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
+        $this->session->set_flashdata('tab_status', 'complainter');
 
         redirect('accidents/form_store/'.$inputs['accident_id']);
     }
@@ -171,7 +176,7 @@ class Accidents extends CI_Controller
             'category_id' =>  $inputs['category_id'],
         ];
         $this->uploadimages->store_images($arr);
-        $this->session->set_userdata('status','upload_images');
+        $this->session->set_flashdata('tab_status','upload_images');
         redirect('accidents/form_store/'.$inputs['category_id']);
     }
 
@@ -258,6 +263,8 @@ class Accidents extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
+        $this->session->set_flashdata('tab_status', 'complainter');
+
         $redirect_page = 'accidents/form_store/';
         redirect($redirect_page.$accident_id);
     }

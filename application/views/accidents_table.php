@@ -14,7 +14,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-md-12 text-right">
-					<a href="<?php echo $link_go_to_form; ?>" class="btn btn-primary">
+					<a href="<?php echo $link_go_to_form.'/0/index'; ?>" class="btn btn-primary">
 						<i class="fa fa-plus-circle"></i>
 						เพิ่มข้อมูลใหม่
 					</a>
@@ -78,7 +78,7 @@
 							</td>
 
 							<td class="text-center">
-								<a href="<?php echo $link_go_to_form . '/' . $value['id']; ?>" class="btn btn-warning">
+								<a href="<?php echo $link_go_to_form . '/' . $value['id'].'/index'; ?>" class="btn btn-warning">
 									<i class="fa fa-pencil"></i>
 								</a>
 							</td>
@@ -117,7 +117,6 @@
 															<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span> -->
 														</div><!-- /.direct-chat-info -->
 				  										<?php foreach ($value['results_participate'] as $car) { ?>
-															<img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
 															<div class="direct-chat-text">
 																<?php echo $car['car_body'];?>
 														  	</div>
@@ -125,7 +124,28 @@
 													</div><!-- /.direct-chat-text -->
                 								</div><!-- /.direct-chat-msg -->
 											</div><!-- /.box-body -->
-            							</div>
+            							</div><!-- box box-primary col-md-12 -->
+										<div class="box box-primary col-md-12">
+            								<div class="box-header with-border">
+              									<h3 class="box-title">เจ้าหน้าที่ที่รับผิดชอบ</h3>
+              									<!-- <div class="box-tools pull-right"> -->
+											</div><!-- /.box-header -->
+            								<div class="box-body">
+            									<div>
+                									<div class="direct-chat-msg">
+                  										<div class="direct-chat-info clearfix">
+														</div><!-- /.direct-chat-info -->
+															<div class="direct-chat-text">
+																<?php 
+																// print_r($results);
+																	$complainter = $users_model->find($value['recorder']);
+																	echo $complainter['results']->name;
+																?>
+														  	</div>
+													</div><!-- /.direct-chat-text -->
+                								</div><!-- /.direct-chat-msg -->
+											</div><!-- /.box-body -->
+            							</div><!-- box box-primary col-md-12 -->
 									</div>
 										<!-- --------------------- -->
 									<div class="col-md-8">

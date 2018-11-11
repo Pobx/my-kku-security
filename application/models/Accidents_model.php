@@ -22,9 +22,9 @@ class Accidents_model extends CI_Model
     accident_date AS accident_date_en,
     DATE_FORMAT(DATE_ADD(accident_date, INTERVAL 543 YEAR),"%d/%m/%Y") as accident_date,
     accident_time,
+    assets_remark,
     assets_name,
     assets_amount,
-    assets_remark,
     (
       CASE
         WHEN period_time = "morning" THEN "เช้า"
@@ -38,6 +38,7 @@ class Accidents_model extends CI_Model
     accident_cause,
     accident_cause.name as accident_cause_name,
     accidents.status,
+    recorder
     ';
 
     private $items2 = '
@@ -58,7 +59,8 @@ class Accidents_model extends CI_Model
     ) AS period_time_name,
     place,
     accident_cause,
-    accidents.status
+    accidents.status,
+    recorder
     ';
 
     public function all($qstr = '')
@@ -146,13 +148,53 @@ class Accidents_model extends CI_Model
     }
 
     public function store($inputs)
-    {       
+    {  
+        $myinputs = array(
+            'accident_date' => $inputs['accident_date'],
+            'accident_time' => $inputs['accident_time'],
+            'period_time' => $inputs['period_time'], 
+            'place' => $inputs['place'],
+            'accident_cause' => $inputs['accident_cause'],
+            'assets_name' => '0',
+            'assets_amount' => 0,
+            'assets_remark' => $inputs['assets_remark'],
+            'status' => $inputs['status'],
+            'recorder' => $inputs['recorder'],
+            'created' => date('Y-m-d H:i:s'),
+
+        );     
 
         if ($inputs['id'] != '')
         {
             $inputs['updated'] = date('Y-m-d H:i:s');
-            $results['query'] = $this->db->where($this->id, $inputs['id'])->update($this->table, $inputs);
+            $results['query'] = $this->db->where($this->id, $inputs['id'])->update($this->table, $myinputs);
             $results['lastID'] = $inputs['id'];
+
+            if(count($inputs['assets_name']) > 0){
+                foreach($inputs['assets_name'] as $key => $data){
+                    $arr= array(
+                        'asset_name' => $data,
+                        'asset_amount' => $inputs['assets_amount'][$key],
+                    );
+                    if(isset($inputs['assets_destroyed_id'][$key])){
+                        //ถ้าเป็นค่าเดิมให้ update
+                        $this->db->where(['accidents_id' =>$results['lastID'], 'id'=> $inputs['assets_destroyed_id'][$key]]);
+                        $this->db->update('accident_asset_affair_detroyed', $arr);
+                    }else{
+                        //ถ้ามีการเพิ่มค่าใหม่เข้ามาให้ทำการinsert
+                        $arr= array(
+                            'accidents_id' =>$results['lastID'],
+                            'asset_name' => $data,
+                            'asset_amount' => $inputs['assets_amount'][$key],
+                        );
+                        $this->db->insert('accident_asset_affair_detroyed', $arr);
+                    }
+                    
+                     
+                }
+            }
+            // echo "<pre>", print_r($inputs); exit();
+
         }
         else
         {
@@ -161,36 +203,22 @@ class Accidents_model extends CI_Model
             // $results['query'] = $this->db->insert($this->table, $inputs);
                         // echo "<pre>", print_r($inputs); exit();
 
-            $myinputs = array(
-                'accident_date' => $inputs['accident_date'],
-                'accident_time' => $inputs['accident_time'],
-                'period_time' => $inputs['period_time'], 
-                'place' => $inputs['place'],
-                'accident_cause' => $inputs['accident_cause'],
-                'assets_name' => '0',
-                'assets_amount' => 0,
-                'assets_remark' => $inputs['assets_remark'],
-                'status' => $inputs['status'],
-                'recorder' => $this->session->userdata('id'),//$inputs['recorder'],
-                'created' => date('Y-m-d H:i:s'),
 
-            );
             $results['query'] = $this->db->insert($this->table, $myinputs);
             $results['lastID'] = $this->db->insert_id();
-            // echo "<pre>", print_r($inputs); exit();
 
             if(count($inputs['assets_name']) > 0){
                 foreach($inputs['assets_name'] as $key => $data){
                     $arr= array(
-                        'accidents_id' =>$results['lastID'],
                         'asset_name' => $data,
                         'asset_amount' => $inputs['assets_amount'][$key],
                     );
                     $this->db->insert('accident_asset_affair_detroyed', $arr);
                 }
             }
+           
         }
-
+       
         return $results;
     }
 

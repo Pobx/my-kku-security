@@ -68,6 +68,11 @@
 						</td>
 
 						<td class="text-center">
+							<a data-toggle="collapse" href="#<?php echo "std_no_hm_info".$value['id']; ?>" role="button" aria-expanded="false" 
+								class="btn btn-info" aria-controls="<?php echo "std_no_hm_info".$value['id']; ?>"><i class="fa fa-eye"></i></a>
+						</td>
+
+						<td class="text-center">
 							<a href="<?php echo $link_go_to_form . '/' . $value['id']; ?>" class="btn btn-warning">
 								<i class="fa fa-pencil"></i>
 							</a>
@@ -79,6 +84,24 @@
 						</td>
 
 					</tr>
+
+					<!-- แสดงข้อมูล -->
+					<tr id="<?php echo "std_no_hm_info".$value['id']; ?>" class="collapse content-wrapper">
+						<td colspan="11">
+							<?php
+								$data = array(
+									'case' => 'break_homes',
+									'cause_title' => 'สถานที่เกิดเหตุ',
+									'std_no_hm_info' => $value,
+									'image_category'=> 'std-no-hm',
+									'category_id' => $value['id']
+								);
+								 
+								$this->load->view('student_no_helmet_show_info_toggle', $data);
+							?>
+						</td>
+					</tr>
+					<!-- end แสดงข้อมูล -->
 					<?php }?>
 				</tbody>
 

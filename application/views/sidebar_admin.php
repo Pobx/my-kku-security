@@ -8,7 +8,7 @@
 <?php if($this->session->userdata['roles'] == 'admin'){ ?>
 
 <li id="security_cards">
-	<a href="<?php echo site_url('security_cards'); ?>"><i class="fa fa-book"></i>ทะเบียนการจัดทําบัตร<br />ผ่านเข้า-ออก</a>
+	<a href="<?php echo site_url('security_cards'); ?>"><i class="fa fa-book"></i>ทําบัตรผ่านเข้า-ออก มหาลัย</a>
 </li>
 <?php } ?>
 

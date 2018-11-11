@@ -87,7 +87,7 @@
 				</div>
 				<div class="col-sm-1"><a href="javascript:append_assets_amount(<?=$data['id'];?>)" class="btn btn-info sm" id="append_assets_form_<?=$data['id'];?>" style="display:''"><b>+</b></a></div>
 				<div class="col-sm-1"><a href="javascript:_delete(<?=$data['id'];?>)" class="btn btn-danger sm" id="del_assets_form_<?=$data['id'];?>" style="display:none"><b>-</b></a></div>
-
+				<input type="hidden"  id="assets_destroyed_id" name="assets_destroyed_id[]"  value="<?php echo $data['id']; ?>">
 			</div>
 		<?php } ?>
 	<?php }else{ ?>
@@ -111,6 +111,19 @@
 
 	<?php } ?>
 	<div id="append_assets_name"></div>
+	<?php if($this->session->userdata('roles') == 'admin'){ ?>	
+		<div class="form-group">
+			<label for="assets_remark" class="col-sm-2 control-label">เจ้าหน้าที่ผู้รับเรื่อง</label>
+			<div class="col-sm-4">
+				<select name="recorder" id="recorder" class="form-control">
+					<option>เลือก...</option>
+					<?php foreach($users['results'] as $user){ ?>
+					<option value="<?php echo $user['id'];?>" <?php echo   $recorder == $user['id'] ? 'selected' : '' ?>><?php echo $user['name'];?></option>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+	<?php } ?>
 	<div class="form-group">
 	<label for="assets_remark" class="col-sm-2 control-label">หมายเหตุ</label>
 

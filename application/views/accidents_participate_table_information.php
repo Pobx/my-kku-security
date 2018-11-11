@@ -1,4 +1,4 @@
-<div class="box box-warning box-solid">
+<div class="box box-info box-solid">
 	<div class="box-header with-border">
 		<h3 class="box-title">
 			<?php echo $head_topic_participate_label; ?>
