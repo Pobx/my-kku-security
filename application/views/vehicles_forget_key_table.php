@@ -66,7 +66,7 @@
 							<a data-toggle="collapse" href="#<?php echo "vh-fg-key_info".$value['id']; ?>" role="button" aria-expanded="false" 
 								class="btn btn-info" aria-controls="<?php echo "vh-fg-key_info".$value['id']; ?>"><i class="fa fa-eye"></i></a>
 				
-							</td>
+						</td>
 						<td class="text-center">
 							<a href="<?php echo $link_go_to_form . '/' . $value['id']; ?>" class="btn btn-warning">
 								<i class="fa fa-pencil"></i>
@@ -86,7 +86,7 @@
 								$data = array(
 									'case' => 'vehicles-forget-key',
 									'cause_title' => 'สถานที่ลืม',
-									'vh_fg_key_info' => $value,
+									'info' => $value,
 									'image_category'=> 'vh-fg-k',
 									'category_id' => $value['id']
 								);
@@ -95,6 +95,7 @@
 							?>
 						</td>
 					</tr>
+					<!-- end แสดงข้อมูล -->
 					<?php }?>
 				</tbody>
 				
