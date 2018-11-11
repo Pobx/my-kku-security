@@ -40,6 +40,7 @@ class Break_homes_model extends CI_Model {
         ELSE ""
       END
     ) AS status_name,
+    recorder
     ';
 
     

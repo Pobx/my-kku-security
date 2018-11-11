@@ -82,7 +82,7 @@
 					</tr>
 					<!-- แสดงข้อมูล -->
 					<tr id="<?php echo "bk_mc_p_info".$value['id']; ?>" class="collapse content-wrapper">
-						<td colspan="10">
+						<td colspan="11">
 							<?php
 								$data = array(
 									'case' => 'vehicles-forget-key',

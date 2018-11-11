@@ -14,7 +14,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-md-12 text-right">
-					<a href="<?php echo $link_go_to_form;?>" class="btn btn-primary">
+					<a href="<?php echo $link_go_to_form.'/index';?>" class="btn btn-primary">
 						<i class="fa fa-plus-circle"></i>
 						เพิ่มข้อมูลใหม่
 					</a>
@@ -53,7 +53,7 @@
 						</td>
 					
 						<td class="text-center">
-							<a href="<?php echo $link_go_to_form.'/'.$value['id'];?>" class="btn btn-warning">
+							<a href="<?php echo $link_go_to_form.'/'.$value['id'].'/index';?>" class="btn btn-warning">
 								<i class="fa fa-pencil"></i>
 							</a>
 						</td>
@@ -64,6 +64,24 @@
 						</td>
 
 					</tr>
+
+					<!-- แสดงข้อมูล -->
+					<tr id="<?php echo "bk_mc_p_info".$value['id']; ?>" class="collapse content-wrapper">
+						<td colspan="7">
+							<?php
+								$data = array(
+									'case' => 'vehicles-forget-key',
+									'cause_title' => 'สถานที่เกิดเหตุ',
+									'bk_mc_p_info' => $value,
+									'image_category'=> 'bk-h',
+									'category_id' => $value['id']
+								);
+								 
+								$this->load->view('break_homes_show_info_toggle', $data);
+							?>
+						</td>
+					</tr>
+					<!-- end แสดงข้อมูล -->
 					<?php }?>
 				</tbody>
 				
