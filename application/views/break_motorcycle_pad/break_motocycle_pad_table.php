@@ -65,7 +65,7 @@
 							<?php echo $value['status_name']; ?>
 						</td>
 						<td class="text-center">
-							<a href="<?php echo $link_go_to_form . '/' . $value['id']; ?>" class="btn btn-warning">
+							<a href="<?php echo $link_go_to_form . '/' . $value['id'].'/index'; ?>" class="btn btn-warning">
 								<i class="fa fa-pencil"></i>
 							</a>
 						</td>

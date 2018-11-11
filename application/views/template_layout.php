@@ -480,6 +480,15 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 			}
 		}
 
+		function removeItem_break_mc_pad(id, url, flag = '') {
+			console.log(id);
+			console.log(url);
+			console.log('remove url => ' + url + '/' + id);
+			if (confirm('คุณต้องการลบข้อมูลใช่หรือไม่ ?') == true) {
+				window.location.href = url + '/' + id + '/' + flag;
+			}
+		}
+
 	</script>
 
 

@@ -47,7 +47,7 @@
 
 			<div class="tab-content">
 				<!-- <form class="form-horizontal form_submit_data"> -->
-				<div id="menu1" class="tab-pane fade <?php echo  $this->session->userdata('tab_status') == 'vhk_form_main_info' ? 'active in' : '';?>">
+				<div id="menu1" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'vhk_form_main_info' ? 'active in' : '';?>">
 					<?php $this->load->view('header_form_submit_data');?>
 						<div class="box-header"></div>
 						<div class="box-body">
@@ -63,7 +63,7 @@
 					</form>
 				</div>
 
-				<div id="menu2" class="tab-pane fade <?php echo  $this->session->userdata('tab_status') == 'vhk_form_detective' ? 'active in' : '';?>">
+				<div id="menu2" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'vhk_form_detective' ? 'active in' : '';?>">
 
 					<?php 
 						if ($id != '') {
@@ -73,7 +73,7 @@
 					?>
 				</div>
 
-				<div id="menu3" class="tab-pane fade <?php echo  $this->session->userdata('tab_status') == 'vhk_form_images' ? 'active in' : '';?>">
+				<div id="menu3" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'vhk_form_images' ? 'active in' : '';?>">
 					<?php 
 						if ($id != '') {
 							echo form_open_multipart('vehicles_forget_key/upload_images');	

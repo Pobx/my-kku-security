@@ -10,6 +10,10 @@ class Break_motorcycle_pad extends CI_Controller
         $this->load->model('Break_motorcycle_pad_model');
         $this->load->library('Date_libs');
         $this->load->library('FilterBarChartData');
+        $this->load->model('Users_model');
+        $this->load->library('UploadImages');
+
+
     }
 
     private $head_topic_label           = 'สาเหตุงัดเบาะรถจักยานยนต์ ';
@@ -29,7 +33,7 @@ class Break_motorcycle_pad extends CI_Controller
         $data['header_columns'] = $this->header_columns;
 
         $qstr = array(
-          'YEAR(date_break)'=>date('Y'),
+        //   'YEAR(date_break)'=>date('Y'),
           'status !=' => 'disabled'
         );
 
@@ -47,6 +51,7 @@ class Break_motorcycle_pad extends CI_Controller
     public function form_store()
     {
         $id = $this->uri->segment(3);
+        $from = $this->uri->segment(4);
 
         $data = $this->find($id);
         $data['head_topic_label'] = $this->head_topic_label;
@@ -54,9 +59,24 @@ class Break_motorcycle_pad extends CI_Controller
         $data['link_back_to_table'] = site_url('break_motorcycle_pad');
         $data['form_submit_data_url'] = site_url('break_motorcycle_pad/store');
 
-        $data['content'] = 'break_motorcycle_pad/break_motocycle_pad_form_store';
+        $qstr = array('status'=>'active');
+        $data['users'] = $this->Users_model->all($qstr);
 
-        // echo "<pre>", print_r($data); exit();
+    
+        $data['complainter'] = $this->find($id);
+
+        $data['content'] = 'break_motorcycle_pad/break_motocycle_pad_form_store';
+        
+        if($from == 'index'){
+            $this->session->set_flashdata('tab_status', 'main_info');
+        }
+        $query2 = $this->db->select('*')
+            ->where(array('image_category'=>'bk-mc-p', 'category_id' => $id))->get('images');
+
+        $data['images']['images'] =  $query2->result_array();
+        $data['images']['numrows'] =   $query2->num_rows();
+
+        // echo "<pre>", print_r($data['complainter']); exit();
         $this->load->view('template_layout', $data);
     }
 
@@ -64,7 +84,7 @@ class Break_motorcycle_pad extends CI_Controller
     {
         $inputs = $this->input->post();
         $inputs['date_break'] = $this->date_libs->set_date_th($inputs['date_break']);
-        $inputs['date_break'].=' '.$inputs['time_break'];
+        $inputs['date_break'].=' '.$inputs['time_break'].":00";
         unset($inputs['time_break']);
         // echo "<pre>", print_r($inputs); exit();
         $results = $this->Break_motorcycle_pad_model->store($inputs);
@@ -76,7 +96,21 @@ class Break_motorcycle_pad extends CI_Controller
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
 
-        redirect('break_motorcycle_pad');
+        redirect('break_motorcycle_pad/form_store/'.$inputs['id']);
+    }
+
+    public function stor_detective(){
+        $inputs = $this->input->post();
+        $results = $this->db->where('id', $inputs['id'])->update('break_motorcycle_pad', array('recorder'=> $inputs['name']));        
+        $alert_type = ($results ==1 ? 'success' : 'warning');
+        $alert_icon = ($results ==1 ? 'check' : 'warning');
+        $alert_message = ($results ==1 ? $this->success_message : $this->warning_message);
+        $this->session->set_flashdata('alert_type', $alert_type);
+        $this->session->set_flashdata('alert_icon', $alert_icon);
+        $this->session->set_flashdata('tab_status', 'complainter');
+
+        redirect('break_motorcycle_pad/form_store/'.$inputs['id']);
+
     }
 
     private function find($id = 0)
@@ -115,5 +149,41 @@ class Break_motorcycle_pad extends CI_Controller
         $this->session->set_flashdata('alert_message', $alert_message);
 
         redirect('break_motorcycle_pad');
+    }
+
+    public function remove_complainter()
+    {
+        $id = $this->uri->segment(3);
+        $arr = array(
+            'recorder' => 0
+        );
+        $results = $this->db->where('id', $id)->set($arr)->update('break_motorcycle_pad');
+
+        $alert_type = ($results==1 ? 'danger' : 'warning');
+        $alert_icon = ($results==1 ? 'trash' : 'warning');
+        $alert_message = ($results==1 ? $this->danger_message : $this->warning_message);
+        $this->session->set_flashdata('alert_type', $alert_type);
+        $this->session->set_flashdata('alert_icon', $alert_icon);
+        $this->session->set_flashdata('alert_message', $alert_message);
+        $this->session->set_flashdata('tab_status',$this->uri->segment(4));
+
+        redirect('break_motorcycle_pad/form_store/'.$id);
+    }
+
+    public function upload_images(){
+        //บันทึกรูป ถ้ามี
+        if(count($_FILES) > 0){
+            $arr = [
+                'file' => $_FILES,
+                'image_category' =>  'bk-mc-p',
+                'category_id' =>  $this->input->post('id'),
+            ];
+            $this->uploadimages->store_images($arr);
+
+        }
+        
+        $this->session->set_flashdata('tab_status', 'upload_images');
+        redirect('break_motorcycle_pad/form_store/'.$this->input->post('id'));
+
     }
 }

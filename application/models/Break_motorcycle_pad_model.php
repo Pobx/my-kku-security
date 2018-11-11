@@ -55,6 +55,7 @@ class Break_motorcycle_pad_model extends CI_Model
         ELSE ""
       END
     ) AS status_name,
+    recorder
     ';
 
     public function all($qstr = '')
