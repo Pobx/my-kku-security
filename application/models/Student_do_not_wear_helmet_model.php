@@ -47,6 +47,7 @@ class Student_do_not_wear_helmet_model extends CI_Model
         ELSE ""
       END
     ) AS status_name,
+    recorder
     ';
 
     public function all($qstr = '')

@@ -9,6 +9,7 @@ class Break_homes extends CI_Controller
 
         $this->load->model('Break_homes_model');
         $this->load->library('Date_libs');
+        $this->load->library('FilterBarChartData');
         $this->load->model('Users_model');
         $this->load->library('UploadImages');
     }
@@ -16,7 +17,7 @@ class Break_homes extends CI_Controller
     private $head_topic_label           = 'สถิติการงัดที่พักอาศัย';
     private $head_sub_topic_label_table = 'รายการสถิติการงัดที่พักอาศัย';
     private $head_sub_topic_label_form  = 'ฟอร์มบันทึกข้อมูล สถิติการงัดที่พักอาศัย';
-    private $header_columns             = array('วันที่', 'ชื่อ - สกุล', 'สถานที่เกิดเหตุ', 'ทรัพย์สินที่เสียหาย', 'หมายเหตุ', 'แก้ไข', 'ลบ');
+    private $header_columns             = array('วันที่', 'ชื่อ - สกุล', 'สถานที่เกิดเหตุ', 'ทรัพย์สินที่เสียหาย', 'หมายเหตุ', 'ดูข้อมูล', 'แก้ไข', 'ลบ');
     private $success_message            = 'บันทึกข้อมูลสำเร็จ';
     private $warning_message            = 'ไม่สามารถทำรายการ กรุณลองใหม่อีกครั้ง';
     private $danger_message             = 'ลบข้อมูลสำเร็จ';
@@ -33,6 +34,9 @@ class Break_homes extends CI_Controller
         $results = $this->Break_homes_model->all($qstr);
         $data['results'] = $results['results'];
         $data['fields'] = $results['fields'];
+
+        $data['bar_chart_data'] = $this->filterbarchartdata->filter($results['results'], 'date_break_en');
+
         $data['content'] = 'break_homes_table';
 
         // echo "<pre>", print_r($data['results']); exit();

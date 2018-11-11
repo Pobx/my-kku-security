@@ -51,6 +51,11 @@
 						<td class="text-center">
 							<?php echo $value['remark'];?>
 						</td>
+
+						<td class="text-center">
+							<a data-toggle="collapse" href="#<?php echo "bk_h_info".$value['id']; ?>" role="button" aria-expanded="false" 
+								class="btn btn-info" aria-controls="<?php echo "bk_h_info".$value['id']; ?>"><i class="fa fa-eye"></i></a>
+						</td>
 					
 						<td class="text-center">
 							<a href="<?php echo $link_go_to_form.'/'.$value['id'].'/index';?>" class="btn btn-warning">
@@ -66,13 +71,13 @@
 					</tr>
 
 					<!-- แสดงข้อมูล -->
-					<tr id="<?php echo "bk_mc_p_info".$value['id']; ?>" class="collapse content-wrapper">
-						<td colspan="7">
+					<tr id="<?php echo "bk_h_info".$value['id']; ?>" class="collapse content-wrapper">
+						<td colspan="8">
 							<?php
 								$data = array(
-									'case' => 'vehicles-forget-key',
+									'case' => 'break_homes',
 									'cause_title' => 'สถานที่เกิดเหตุ',
-									'bk_mc_p_info' => $value,
+									'bk_h_info' => $value,
 									'image_category'=> 'bk-h',
 									'category_id' => $value['id']
 								);
