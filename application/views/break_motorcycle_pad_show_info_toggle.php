@@ -10,7 +10,29 @@
                 </div>
             </div><!-- /.info-box-content -->
         </div>	<!-- /.info-box -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">ข้อมูลการรับเรื่องของเจ้าหน้าที่</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <strong><i class="fa fa-book margin-r-5"></i> เจ้าหน้าที่ผู้รับเรื่อง</strong>
+                <?php
+                    $complainter = $users_model->find($bk_mc_p_info['recorder']);
+                    echo '<p class="text-muted"> ' .$complainter['results']->name.'</p>';
+                ?>
+             
+              <hr>
 
+              <strong><i class="fa fa-map-marker margin-r-5"></i> หมายเหตุ</strong>
+
+              <p class="text-muted"><?php echo $bk_mc_p_info['remark'];?></p>
+
+              <hr>
+
+            </div>
+            <!-- /.box-body -->
+          </div><!-- box box-primary -->
         
     </div>
     <div class="col-md-4">

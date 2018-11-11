@@ -14,7 +14,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-md-12 text-right">
-					<a href="<?php echo $link_go_to_form; ?>" class="btn btn-primary">
+					<a href="<?php echo $link_go_to_form.'/0/index'; ?>" class="btn btn-primary">
 						<i class="fa fa-plus-circle"></i>
 						เพิ่มข้อมูลใหม่
 					</a>

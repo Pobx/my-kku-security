@@ -33,7 +33,7 @@ class Break_motorcycle_pad extends CI_Controller
         $data['header_columns'] = $this->header_columns;
 
         $qstr = array(
-        //   'YEAR(date_break)'=>date('Y'),
+          'YEAR(date_break)'=>date('Y'),
           'status !=' => 'disabled'
         );
 
@@ -42,6 +42,8 @@ class Break_motorcycle_pad extends CI_Controller
 
         $data['bar_chart_data'] = $this->filterbarchartdata->filter($results['results'], 'date_break_en');
         $data['fields'] = $results['fields'];
+        $data['users_model'] = $this->Users_model;
+
         $data['content'] = 'break_motorcycle_pad/break_motocycle_pad_table';
 
         // echo "<pre>", print_r($data['results']); exit();
@@ -54,12 +56,13 @@ class Break_motorcycle_pad extends CI_Controller
         $from = $this->uri->segment(4);
 
         $data = $this->find($id);
+
         $data['head_topic_label'] = $this->head_topic_label;
         $data['head_sub_topic_label'] = $this->head_sub_topic_label_form;
         $data['link_back_to_table'] = site_url('break_motorcycle_pad');
         $data['form_submit_data_url'] = site_url('break_motorcycle_pad/store');
 
-        $qstr = array('status'=>'active');
+        $qstr = array('status'=>'active', 'roles' => 'security');
         $data['users'] = $this->Users_model->all($qstr);
 
     
@@ -95,8 +98,9 @@ class Break_motorcycle_pad extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
+        $this->session->set_flashdata('tab_status', 'main_info');
 
-        redirect('break_motorcycle_pad/form_store/'.$inputs['id']);
+        redirect('break_motorcycle_pad/form_store/'.$results['lastID']);
     }
 
     public function stor_detective(){

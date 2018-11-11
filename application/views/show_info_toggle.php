@@ -33,7 +33,7 @@
 
             </div>
             <!-- /.box-body -->
-          </div>
+          </div><!-- box box-primary -->
         
     </div>
     <div class="col-md-4">
