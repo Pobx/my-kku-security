@@ -11,6 +11,29 @@
             </div><!-- /.info-box-content -->
         </div>	<!-- /.info-box -->
 
+        <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">ข้อมูลการเก็บกุญแจ</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <strong><i class="fa fa-book margin-r-5"></i> เจ้าหน้าที่ที่เก็บกุญแจ</strong>
+                <?php
+                    $complainter = $users_model->find($vh_fg_key_info['detective_name']);
+                    echo '<p class="text-muted"> ' .$complainter['results']->name.'</p>';
+                ?>
+             
+              <hr>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> หมายเหตุ</strong>
+
+              <p class="text-muted"><?php echo $vh_fg_key_info['detective_remark'];?></p>
+
+              <hr>
+
+            </div>
+            <!-- /.box-body -->
+          </div>
         
     </div>
     <div class="col-md-4">

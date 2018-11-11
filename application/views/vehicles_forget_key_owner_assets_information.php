@@ -1,5 +1,3 @@
-<div class="callout callout-info">
-<div class="row">
 	<div class="form-group col-md-4">
 	<!-- <php $this->load->view('period_times');?> -->
 
@@ -42,11 +40,9 @@
 			</label>
 		</div>
 	</div>
-</div>
-</div>
 
-<div class="callout callout-info">
-<div class="row">
+
+
 	<div class="form-group col-md-6">
 		<label for="owner_assets_name" class="col-sm-4 control-label">ชื่อ&nbsp;-&nbsp;สกุล</label>
 
@@ -65,11 +61,7 @@
 		</div>
 	</div>
 
-</div>
-</div>
 
-<div class="callout callout-info">
-<div class="row">
 	<div class="form-group col-md-6">
 		<label for="owner_assets_age" class="col-sm-4 control-label">อายุ(ปี)</label>
 
@@ -86,15 +78,11 @@
 		</div>
 	</div>
 
-</div>
-</div>
 
-<div class="callout callout-info">
-<div class="row">
 	<div class="form-group">
 		<label for="owner_assets_forget_key_place" class="col-sm-2 control-label">สถานที่ลืม</label>
 
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<select class="form-control select2" name="vehicles_forget_key_place_id" id="vehicles_forget_key_place_id">
 				<option>เลือก</option>
 				<?php foreach ($resluts_forget_key_place as $key => $value) {?>
@@ -111,11 +99,7 @@
 			<input type="checkbox" class="flat-red" name="chk_place" value="checked_new_place">&nbsp;สถานที่(อื่นๆ)
 		</div>
 	</div>
-</div>
-</div>
 
-<div class="callout callout-info">
-<div class="row">
 	<div class="form-group col-md-6">
 		<label class="col-sm-4 control-label">ประเภทยานพาหนะ</label>
 
@@ -135,11 +119,7 @@
 			<input type="text" class="form-control" id="license_plate" name="license_plate" placeholder="ทะเบียน" value="<?php echo $license_plate; ?>">
 		</div>
 	</div>
-</div>
-</div>
 
-<div class="callout callout-info">
-<div class="row">
 	<div class="form-group col-md-3">
 		<label for="brand" class="col-sm-4 control-label">ยี่ห้อ</label>
 
@@ -183,5 +163,4 @@
 			<input type="text" class="form-control" id="state_comment" name="state_comment" placeholder="สภาพรถ" value="<?php echo $state_comment; ?>">
 		</div>
 	</div>
-</div>
-</div>
+

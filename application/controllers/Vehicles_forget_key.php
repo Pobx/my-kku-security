@@ -52,6 +52,7 @@ class Vehicles_forget_key extends CI_Controller
 
         $data['bar_chart_data'] = $this->filterbarchartdata->filter($results['results'], 'date_forget_key_en');
         $data['fields'] = $results['fields'];
+        $data['users_model'] = $this->Users_model;
         $data['content'] = 'vehicles_forget_key_table';
 
         // echo "<pre>", print_r($data['results']); exit();
@@ -61,6 +62,8 @@ class Vehicles_forget_key extends CI_Controller
     public function form_store()
     {
         $id = $this->uri->segment(3);
+        $from = $this->uri->segment(4);
+
         $inputs = $this->input->post();
 
 
@@ -71,7 +74,8 @@ class Vehicles_forget_key extends CI_Controller
         $data['header_sub_topic_label_owner_assets'] = $this->header_sub_topic_label_owner_assets; 
         $data['header_sub_topic_label_detective'] = $this->header_sub_topic_label_detective;
         $data['header_columns_detective'] = $this->header_columns_detective;
-        
+                // echo "<pre>", print_r($data); exit();
+
 
         $data['link_back_to_table'] = site_url('vehicles_forget_key');
         $data['form_submit_data_url'] = site_url('vehicles_forget_key/store');
@@ -97,7 +101,9 @@ class Vehicles_forget_key extends CI_Controller
         $data['images']['images'] =  $query2->result_array();
         $data['images']['numrows'] =   $query2->num_rows();
         
-        $this->session->set_flashdata('tab_status', 'vhk_form_main_info');
+        if($from == 'index'){
+            $this->session->set_flashdata('tab_status', 'main_info');
+        }
 
         $data['content'] = 'vehicles_forget_key_form_store';
         
@@ -110,7 +116,6 @@ class Vehicles_forget_key extends CI_Controller
     public function store()
     {
         $inputs = $this->input->post();
-        // echo "<pre>",print_r($_FILES); print_r($inputs); exit();
 
         if (isset($inputs['chk_place']) && $inputs['chk_place'] == 'checked_new_place') {
           $inputs['vehicles_forget_key_place_id'] = $this->create_new_place($inputs);
@@ -119,17 +124,7 @@ class Vehicles_forget_key extends CI_Controller
         $inputs['date_forget_key'] = $this->date_libs->set_date_th($inputs['date_forget_key']);
         unset($inputs['chk_place'], $inputs['place_text']);
         $results = $this->Vehicles_forget_key_model->store($inputs);
-
-        //บันทึกรูป ถ้ามี
-        if(count($_FILES) > 0){
-            $arr = [
-                'file' => $_FILES,
-                'image_category' =>  'vh-fg-k',
-                'category_id' =>  $results['lastID'],
-            ];
-            $this->uploadimages->store_images($arr);
-
-        }
+        
        
         $alert_type = ($results['query'] ? 'success' : 'warning');
         $alert_icon = ($results['query'] ? 'check' : 'warning');
@@ -137,7 +132,7 @@ class Vehicles_forget_key extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
-        $this->session->set_flashdata('tab_status', 'vhk_form_main_info');
+        $this->session->set_flashdata('tab_status', 'main_info');
         // redirect('vehicles_forget_key');
         redirect('vehicles_forget_key/form_store/'.$results['lastID']);
     }
@@ -203,7 +198,7 @@ class Vehicles_forget_key extends CI_Controller
       $this->session->set_flashdata('alert_type', $alert_type);
       $this->session->set_flashdata('alert_icon', $alert_icon);
       $this->session->set_flashdata('alert_message', $alert_message);
-      $this->session->set_flashdata('tab_status', 'vhk_form_detective');
+      $this->session->set_flashdata('tab_status', 'complainter');
       $redirect_page = 'vehicles_forget_key/form_store/';
       redirect($redirect_page.$vehicles_forget_key_id);
   }
@@ -218,7 +213,7 @@ class Vehicles_forget_key extends CI_Controller
         $this->session->set_flashdata('alert_type', $alert_type);
         $this->session->set_flashdata('alert_icon', $alert_icon);
         $this->session->set_flashdata('alert_message', $alert_message);
-        $this->session->set_flashdata('tab_status', 'vhk_form_detective');
+        $this->session->set_flashdata('tab_status', 'complainter');
 
         redirect('vehicles_forget_key/form_store/'.$inputs['vehicles_forget_key_id']);
     }
@@ -234,7 +229,7 @@ class Vehicles_forget_key extends CI_Controller
             $this->uploadimages->store_images($arr);
 
         }
-        $this->session->set_flashdata('tab_status', 'vhk_form_images');
+        $this->session->set_flashdata('tab_status', 'upload_images');
         redirect('vehicles_forget_key/form_store/'.$this->input->post('id'));
 
     }

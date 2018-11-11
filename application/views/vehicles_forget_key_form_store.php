@@ -10,60 +10,50 @@
 		</div>
 
 		<div class="box-body">
-			<style>
-				.process-step .btn:focus{outline:none}
-				.process{display:table;width:100%;position:relative}
-				.process-row{display:table-row}
-				.process-step button[disabled]{opacity:1 !important;filter: alpha(opacity=100) !important}
-				.process-row:before{top:40px;bottom:0;position:absolute;content:" ";width:100%;height:1px;background-color:#ccc;z-order:0}
-				.process-step{display:table-cell;text-align:center;position:relative}
-				.process-step p{margin-top:4px}
-				.btn-circle{width:80px;height:80px;text-align:center;font-size:12px;border-radius:50%}
 
-			</style>
-			<div class="row">
-				<div class="process">
-					<div class="process-row nav nav-tabs">
-						<div class="process-step">
-							<button type="button" class="btn  btn-circle <?php echo  $this->session->userdata('tab_status') == 'vhk_form_main_info' ? 'btn-info' : 'btn-default';?>"  data-toggle="tab" href="#menu1"><i class="fa fa-info fa-3x"></i></button>
-							<p><small>ข้อมูล<br />ผู้ลืมกุญแจ</small></p>
-						</div>
-						<div class="process-step">
-							<button type="button" class="btn  btn-circle <?php echo  $this->session->userdata('tab_status') == 'vhk_form_detective' ? 'btn-info' : 'btn-default';?>" data-toggle="tab" href="#menu2"><i class="fa fa-file-text-o fa-3x"></i></button>
-							<p><small>ข้อมูล<br />ผู้เก็บกุญแจได้</small></p>
-						</div>
-						<div class="process-step">
-							<button type="button" class="btn  btn-circle  <?php echo  $this->session->userdata('tab_status') == 'vhk_form_images' ? 'btn-info' : 'btn-default';?>" data-toggle="tab" href="#menu3"><i class="fa fa-image fa-3x"></i></button>
-							<p><small>อัพโหลด<br />รูปภาพ</small></p>
-						</div>
-						<!-- <div class="process-step">
-							<button type="button" class="btn btn-default btn-circle" data-toggle="tab" href="#menu4"><i class="fa fa-cogs fa-3x"></i></button>
-							<p><small>บันทึก<br />ข้อมูลเรียบร้อย</small></p>
-						</div> -->
-					</div>
-				</div>
-			</div>
-
+			<?php 
+				$header_content = array(
+					'tab_status' => $this->session->flashdata('tab_status'),
+					'topic' => 'vehicles_forget_key',
+					'main_info' =>array(
+						'topic' => 'ผู้ลืมกุญแจ'
+					),
+					'complainter' => $this->session->userdata('roles') == 'security' ? false : array(
+						'topic' => 'ผู้เก็บกุญแจได้'
+					),
+					'upload_image' => array(),
+				);
+				$this->load->view('header_form_store', array('header_content' => $header_content));
+			?>
+			
 
 			<div class="tab-content">
 				<!-- <form class="form-horizontal form_submit_data"> -->
-				<div id="menu1" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'vhk_form_main_info' ? 'active in' : '';?>">
-					<?php $this->load->view('header_form_submit_data');?>
-						<div class="box-header"></div>
+				<div id="menu1" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'main_info' ? 'active in' : '';?>">
+					<div class="box box-info box-solid">
+						<div class="box-header with-border">
+							<h3 class="box-title">ข้อมูลผู้ลืมกุญแจ</h3>
+						</div><!-- /.box-header -->
 						<div class="box-body">
-							<?php 
-								$this->load->view('vehicles_forget_key_owner_assets_information');
-							?>
-						</div>
-						<div class="box-footer">
-							<input type="hidden" name="id" value="<?php echo $id; ?>">
-							<input type="hidden" name="status" value="active">
-							<?php $this->load->view('button_save_and_back_page_in_form');?>
-						</div>
-					</form>
+							<?php $this->load->view('header_form_submit_data');?>
+								<div class="box-header"></div>
+								<div class="box-body">
+									<?php 
+										$this->load->view('vehicles_forget_key_owner_assets_information');
+									?>
+								</div>
+								<div class="box-footer">
+									<input type="hidden" name="id" value="<?php echo $id; ?>">
+									<input type="hidden" name="status" value="active">
+									<?php $this->load->view('button_save_and_back_page_in_form');?>
+								</div>
+							</form>
+						</div><!--box-body -->
+					 </div> <!--class="box box-info box-solid"> -->
+
 				</div>
 
-				<div id="menu2" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'vhk_form_detective' ? 'active in' : '';?>">
+				<div id="menu2" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'complainter' ? 'active in' : '';?>">
 
 					<?php 
 						if ($id != '') {
@@ -73,7 +63,7 @@
 					?>
 				</div>
 
-				<div id="menu3" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'vhk_form_images' ? 'active in' : '';?>">
+				<div id="menu3" class="tab-pane fade <?php echo  $this->session->flashdata('tab_status') == 'upload_images' ? 'active in' : '';?>">
 					<?php 
 						if ($id != '') {
 							echo form_open_multipart('vehicles_forget_key/upload_images');	
@@ -158,30 +148,7 @@
 
 
 
-			$('.btn-circle').on('click',function(){
-			$('.btn-circle.btn-info').removeClass('btn-info').addClass('btn-default');
-			$(this).addClass('btn-info').removeClass('btn-default').blur();
-			});
-
-			$('.next-step, .prev-step').on('click', function (e){
-			var $activeTab = $('.tab-pane.active');
-
-			$('.btn-circle.btn-info').removeClass('btn-info').addClass('btn-default');
-
-			if ( $(e.target).hasClass('next-step') )
-				{
-					var nextTab = $activeTab.next('.tab-pane').attr('id');
-					$('[href="#'+ nextTab +'"]').addClass('btn-info').removeClass('btn-default');
-					$('[href="#'+ nextTab +'"]').tab('show');
-				}
-				else
-				{
-					var prevTab = $activeTab.prev('.tab-pane').attr('id');
-					$('[href="#'+ prevTab +'"]').addClass('btn-info').removeClass('btn-default');
-					$('[href="#'+ prevTab +'"]').tab('show');
-				}
-			});
-
+			
 		});
 
 
@@ -243,3 +210,4 @@
 		}
 
 	</script>
+<?php $this->load->view('script_tab_controller');?>
