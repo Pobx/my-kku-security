@@ -49,7 +49,29 @@ class Cctv_request_log extends CI_Controller
     {
         $id = $this->uri->segment(3);
         $data = $this->find($id);
-        
+        $query = $this->db->select('*')->from('cctv_request_log_docs')
+            ->where(array('cctv_req_log_id'=> $id, 'status' => 'active'))->get();
+        $cctv_log_docs = $query->result_array(); 
+        $data['other_doc'] = ''; 
+        $data['notice']='';
+        $data['std_card'] ='';
+        $data['id_card'] = '';
+        $data['gov_card'] = '';
+        foreach($cctv_log_docs as $docs){
+            if($docs['docs_type'] == 'notice'){
+                $data['notice'] = $docs;
+            }else if($docs['docs_type'] == 'std_card'){
+                $data['std_card'] = $docs;
+            }else if($docs['docs_type'] == 'id_card'){
+                $data['id_card'] = $docs;
+            }else if($docs['docs_type'] == 'gov_card'){
+                $data['gov_card'] = $docs;
+            }else if($docs['docs_type'] == 'other_doc'){
+                $data['other_doc'] = $docs;
+            }
+        }
+                // echo "<pre>"; print_r($data);die();
+
         $data['head_topic_label'] = $this->head_topic_label;
         $data['head_sub_topic_label'] = $this->head_sub_topic_label_form;
         $data['link_back_to_table'] = site_url('cctv_request_log');
@@ -71,6 +93,7 @@ class Cctv_request_log extends CI_Controller
         $inputs['request_date'] = $this->date_libs->set_date_th($inputs['request_date']);
 
         $results = $this->Cctv_request_log_model->store($inputs);
+        // echo "<pre>"; print_r($inputs);die();
 
         $alert_type = ($results['query'] ? 'success' : 'warning');
         $alert_icon = ($results['query'] ? 'check' : 'warning');

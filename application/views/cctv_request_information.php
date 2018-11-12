@@ -12,32 +12,39 @@
 	margin:3px;
 }
 </style>
-<div class="form-group">
-	<label for="request_date" class="col-sm-2 control-label">วันที่</label>
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group">
+			<label for="request_date" class="col-sm-4 control-label">วันที่</label>
 
-	<div class="col-sm-4">
-		<input type="text" class="form-control datepicker" id="request_date" name="request_date" data-provide="datepicker"
-		 data-date-language="th-th" placeholder="วันที่" value="<?php echo $request_date; ?>">
-	</div>
-</div>
+			<div class="col-sm-8">
+				<input type="text" class="form-control datepicker" id="request_date" name="request_date" data-provide="datepicker"
+				data-date-language="th-th" placeholder="วันที่" value="<?php echo $request_date; ?>">
+			</div>
+		</div>
+	</div><!-- col-md-4 -->
+	<div class="col-md-4">
+		<div class="form-group">
+			<label for="victim_name" class="col-sm-4 control-label">ชื่อ-สกุล</label>
+			<div class="col-sm-8">
+				<input type="text" id="victim_name" name="victim_name" placeholder="ชื่อ-สกุล" class="form-control" value="<?php echo $victim_name;?>">
+			</div>
+		</div>	
+	</div><!-- col-md-4 -->
+	<div class="col-md-4">
+		<div class="form-group">
+			<label for="gender" class="col-sm-4 control-label">เพศ</label>
 
-<div class="form-group">
-	<label for="victim_name" class="col-sm-2 control-label">ชื่อ-สกุล</label>
-	<div class="col-sm-4">
-		<input type="text" id="victim_name" name="victim_name" placeholder="ชื่อ-สกุล" class="form-control" value="<?php echo $victim_name;?>">
-	</div>
-</div>
+			<div class="col-sm-8">
+				<label>
+					<input type="radio" name="gender" class="flat-red" value="male" <?php if ($gender=='male' ) { echo "checked" ;}?>>&nbsp;ชาย
+					<input type="radio" name="gender" class="flat-red" value="female" <?php if ($gender=='female' ) { echo "checked" ;}?>>&nbsp;หญิง
+				</label>
+			</div>
+		</div>
+	</div><!-- col-md-4 -->
+</div><!--roww -->
 
-<div class="form-group">
-	<label for="gender" class="col-sm-2 control-label">เพศ</label>
-
-	<div class="col-sm-4">
-		<label>
-			<input type="radio" name="gender" class="flat-red" value="male" <?php if ($gender=='male' ) { echo "checked" ;}?>>&nbsp;ชาย
-			<input type="radio" name="gender" class="flat-red" value="female" <?php if ($gender=='female' ) { echo "checked" ;}?>>&nbsp;หญิง
-		</label>
-	</div>
-</div>
 
 <?php $this->load->view('people_type');?>
 
@@ -65,29 +72,72 @@
 
 <div class="form-group">
 	<label for="victim_address" class="col-sm-2 control-label">ผลการดำเนินการ</label>
-	<div class="col-sm-4">
-		<label>
-			<input type="radio" name="operation_status" class="flat-red" value="meet_event" <?php if ($operation_status=='meet_event'
-			 ) { echo "checked" ;}?>>&nbsp;พบเหตุการณ์
-			<input type="radio" name="operation_status" class="flat-red" value="have_not_event" <?php if ($operation_status=='have_not_event'
-			 ) { echo "checked" ;}?>>&nbsp;ไม่พบเหตุการณ์
-			<input type="radio" name="operation_status" class="flat-red" value="other" <?php if ($operation_status=='other' ) {
-			 echo "checked" ;}?>>&nbsp;อื่นๆ
+	<div class="col-sm-8">
+		<div class="row">
+			<div class="col-md-3">
+				<input type="radio" name="operation_status" class="flat-red" value="meet_event" <?php if ($operation_status=='meet_event'
+				) { echo "checked" ;}?>>&nbsp;พบเหตุการณ์
+			</div>
+			<div class="col-md-3">
+				<input type="radio" name="operation_status" class="flat-red" value="have_not_event" <?php if ($operation_status=='have_not_event'
+				) { echo "checked" ;}?>>&nbsp;ไม่พบเหตุการณ์	
+			</div>
+			<div class="col-sm-6">
+				<div class="col-sm-3">
+				 	<input type="radio" name="operation_status" class="flat-red" value="other" <?php if ($operation_status=='other' ) {
+			 			echo "checked" ;}?>>&nbsp;อื่นๆ
 
-		</label>
+				 </div>
+				 <div class="col-sm-9">
+				 	<div class="form-group" id="div_other_textbox">
+						<div class="col-sm-12">
+							<textarea class="form-control" rows="3" id="operation_status_note" name="operation_status_note" placeholder="อื่นๆ"><?php  echo $operation_status_note; ?></textarea>
+						</div>
+					</div>
+				</div>
+			 </div>
+		</div>	
 	</div>
 </div>
+					
+
+
 
 <div class="form-group" id="div_other_textbox">
-	<label class="col-sm-2 control-label">&nbsp;</label>
+	<label class="col-sm-2 control-label"> เอกสารแนบคำขอ</label>
 	<div class="col-sm-4">
-		<textarea class="form-control" rows="3" id="operation_status_note" name="operation_status_note" placeholder="อื่นๆ"><?php  echo $operation_status_note; ?></textarea>
+		<div class="form-group">
+			<input type="checkbox" name="req_doc[notice]" class="flat-red" value="notice" <?php if($notice !=""){echo "checked";};?>> สำเนาบันทึกแจ้งความประจำวัน
+		</div>
+		<div class="form-group">
+			<input type="checkbox" name="req_doc[std_card]" class="flat-red" value="std_card" <?php if($std_card !=""){echo "checked";};?>> สำเนาบัตรประจำตัวนักศึกษา
+		</div>
+		<div class="form-group">
+			<input type="checkbox" name="req_doc[id_card]" class="flat-red" value="id_card" <?php if($id_card !=""){echo "checked";};?>> สำเนาบัตรประจำตัวประชาชน
+		</div>
+		<div class="form-group">
+			<input type="checkbox" name="req_doc[gov_card]" class="flat-red" value="gov_card" <?php if($gov_card !=""){echo "checked";};?>> สำเนาบัตรประจำตัวข้าราชการ
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-5">
+					<input type="checkbox" name="req_doc[other_doc]" class="flat-red" value="other_doc" <?php if($other_doc !=""){echo "checked";};?>> สำเนาบัตรอื่นๆ(ระบุ) 
+				</div>
+				<div class="col-md-7">
+					<input type="text" name="req_doc[other_doc][name]" id="other_doc" value="<?php if($other_doc !=""){echo $other_doc['other_docs'];};?>" class="form-control">
+				</div>
+			</div>
+		</div>
+
 	</div>
 </div>
+
+
+
 
 <div class="form-group">
 
-	<label class="col-sm-2 control-label">เอกสารแนบคำขอ</label>
+	<label class="col-sm-2 control-label">สำรองข้อมูล</label>
 	<div class="col-sm-9">
 		<div class="row">
 			<div class="col-sm-1">
