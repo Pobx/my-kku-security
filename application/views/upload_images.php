@@ -32,7 +32,7 @@
                 <?php foreach($images['images'] as $image ){ ?>	
                     <div class="col-sm-6">
                         <img src="<?=base_url().'/uploads/'.$image["image_path"]?>" width="450">
-                        <a href="javascript:delete_raw_image(<?=$image['id'];?>)" class="btn btn-danger">ลบ</a>
+                        <a href="javascript:delete_raw_image(<?=$image['id'];?>, 'vehicles_forget_key/delete_raw_image')" class="btn btn-danger">ลบ</a>
                     </div>
                         
                 <?php } ?>

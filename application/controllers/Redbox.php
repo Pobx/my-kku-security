@@ -54,7 +54,8 @@ class Redbox extends CI_Controller
         $data = $this->find($id);
         $qstr_redbox_place = array('redbox_place.status'=>'active');
         $results_redbox_place = $this->Redbox_place_model->all($qstr_redbox_place);
-       
+            //    echo "<pre>", print_r($data); exit();
+
         $data['results_redbox_place'] = $results_redbox_place['results'];
 
         $data['head_topic_label'] = $this->head_topic_label;
@@ -67,11 +68,12 @@ class Redbox extends CI_Controller
           $data['user_id'] = $sess_data['id'];
           $data['name'] = $sess_data['name'];
         }
+        $qstr = array('status'=>'active', 'roles' => 'security');
+        $data['users'] = $this->Users_model->all($qstr);
         $data['checked_redbox_place'] = $results_redbox_place['results2'];
         $data['redbox_total_rows'] =  $results_redbox_place['rows'];
         $data['redbox_checked_rows'] =  $results_redbox_place['rows2'];
-        // echo "<pre>", print_r($data); exit();
-
+ 
         $data['content'] = 'redbox_form_store';
 
         // echo "<pre>", print_r($data); exit();
@@ -84,12 +86,7 @@ class Redbox extends CI_Controller
         $inputs = $this->input->post();
         $inputs['inspect_date'] = date("Y-m-d H:i:s");
 
-        $qstr_users = array('username'=>$inputs['username']);
-        $results = $this->Users_model->all($qstr_users);
-        $user_id = (isset($results['results'][0]['id'])? $results['results'][0]['id'] : NULL);
-        $inputs['user_id'] = $user_id;
-        // echo "<pre>", print_r($results); exit();
-        unset($inputs['username']);
+        
 
         // echo "<pre>", print_r($inputs); exit();
         $results = $this->Redbox_inspect_transaction_model->store($inputs);
@@ -104,6 +101,7 @@ class Redbox extends CI_Controller
         $redirect_page = ($sess_data['roles'] =='security'? 'redbox/form_store' : 'redbox');
         redirect($redirect_page);
     }
+    
 
     private function find($id = 0)
     {

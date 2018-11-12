@@ -49,7 +49,7 @@ if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpe
 
 
 function delete_raw_image(id){
-$.post( "<?php echo site_url('accidents/delete_raw_image');?>", { 'id': id})
+$.post( "<?php echo site_url('"+url+"');?>", { 'id': id})
 .done(function( data ) {
     $('#show_images_div').html(data);
 });

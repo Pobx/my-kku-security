@@ -49,13 +49,4 @@ set_time_limit(0);
 		</tr>
 		<?php }?>
 	</tbody>
-	<tfoot>
-		<?php foreach ($header_columns as $key => $value)
-{
-    ?>
-		<th>
-			<?php echo $value; ?>
-		</th>
-		<?php }?>
-	</tfoot>
 </table>

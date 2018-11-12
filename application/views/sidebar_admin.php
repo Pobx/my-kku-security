@@ -35,7 +35,7 @@
 
 <li id="redbox">
 	<?php if($this->session->userdata['roles'] == 'security'){ ?>
-		<a href="<?php echo site_url('redbox_security_only/form_store'); ?>"><i class="fa fa-inbox"></i> <span>สถิติกล่องแดง</span></a>
+		<!-- <a href="<php echo site_url('redbox_security_only/form_store'); ?>"><i class="fa fa-inbox"></i> <span>สถิติกล่องแดง</span></a> -->
 
 	<?php }else{ ?>
 		<a href="<?php echo site_url('redbox'); ?>"><i class="fa fa-inbox"></i> <span>สถิติกล่องแดง</span></a>

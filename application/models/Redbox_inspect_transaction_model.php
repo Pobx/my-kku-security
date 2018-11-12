@@ -84,6 +84,10 @@ class Redbox_inspect_transaction_model extends CI_Model
 
     public function store($inputs)
     {
+        // print_r($inputs);die();
+        // $myinputs = array(
+        //     [redbox_place_id] => 1 [status_inspect] => normal [comment] => [name] => 106 [id] => 15 [user_id] => 1 [inspect_date] => 2018-11-12 06:06:04 )
+        // )
         if ($inputs['id'] != '')
         {
             $inputs['updated'] = date('Y-m-d H:i:s');

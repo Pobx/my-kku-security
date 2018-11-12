@@ -270,7 +270,7 @@ class Accidents extends CI_Controller
     }
 
     public function delete_raw_image(){
-         $inputs = $this->input->post();
+        $inputs = $this->input->post();
         $query = $this->db->where(['id' =>$inputs['id']])->get('images');
         $delete_image = $query->result_array();
         $delete_image['num_rows'] = $query->num_rows();
@@ -278,20 +278,22 @@ class Accidents extends CI_Controller
         if($delete_image['num_rows'] > 0){
             unlink(FCPATH.'uploads/'.$delete_image[0]['image_path']);
             $this->db->where('id', $inputs['id'])->delete('images');
-            $query = $this->db->get('images');
+            
+            $arr = array(
+                    'category_id' => $delete_image[0]['category_id'],
+                    'image_category' => $delete_image[0]['image_category']
+            );
+            $query = $this->db->select('*')->from('images')->where($arr)->get();
             $current_images = $query->result_array();
-            // print_r($current_images);
             foreach($current_images as $key => $image){
-                $str.='
-                    <div class="col-sm-6">
-                        <img src="'.base_url()."uploads/".$image["image_path"].'" width="450">
-                        <a href="javascript:delete_raw_image('.$image["id"].')" class="btn btn-danger">ลบ</a>
-                    </div>
-                ';
+                    $str.='
+                        <div class="col-sm-6">
+                            <img src="'.base_url()."uploads/".$image["image_path"].'" width="450">
+                            <a href="javascript:delete_raw_image('.$image["id"].')" class="btn btn-danger">ลบ</a>
+                        </div>
+                    ';
             }
         }
-        echo $str;
-        // echo $delete_image['num_rows'];
-        // echo $input['id'];
+          echo $str;
     }
 }

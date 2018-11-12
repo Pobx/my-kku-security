@@ -46,11 +46,18 @@
 </div>
 
 <div class="form-group">
-	<label for="username" class="col-sm-4 control-label">รหัส</label>
+	<label for="username" class="col-sm-4 control-label">ผู้รับผิดชอบ</label>
 
 	<div class="col-sm-8">
-		<input type="number" class="form-control" id="username" name="username" placeholder="รหัส" 
-			value="<?php echo isset($inspector_username) && $inspector_username !=""   ? $inspector_username : $user_id?>">
+		<select class="form-control select2" style="width:240px" id="user_id" name="user_id" >
+			<option>เลือก...</option>
+			<?php foreach($users['results'] as $user){ ?>
+				<option value="<?=$user['id'];?>" <?php echo $user['id'] == $user_id ? 'selected' :'' ?>><?=$user['name'];?></option>
+
+			<?php }?>
+		</select>
+		<!-- <input type="number" class="form-control" id="username" name="username" placeholder="รหัส" 
+			value="<php echo isset($inspector_username) && $inspector_username !=""   ? $inspector_username : $user_id?>"> -->
 	</div>
 
 </div>
