@@ -8,6 +8,7 @@ class Report_accidents extends CI_Controller
         parent::__construct();
 
         $this->load->model('Accidents_model');
+        $this->load->model('Accidents_cause_model');
         $this->load->model('Accidents_place_model');
         $this->load->library('Date_libs');
         $this->load->library('FilterBarChartData');
@@ -20,6 +21,7 @@ class Report_accidents extends CI_Controller
     private $head_sub_topic_label_table           = 'รายงาน สถิติอุบัติเหตุ';
     private $header_columns                       = array('วันที่', 'ช่วงเวลา', 'สถานที่เกิดเหตุ', 'รถยนต์', 'รถจักรยานยนต์', 'รถที่เกิดเหตุ', 'สาเหตุ', 'บาดเจ็บ', 'เสียชีวิต', 'ผู้ประสบเหตุ / คู่กรณี', 'หน่วยงาน', 'บุคลากร', 'นักศึกษา', 'บุคคลภายใน');
     private $header_excel_monthly_summary_columns = array('ลำดับ', 'สถานที่เกิดเหตุ', 'จำนวน(ครั้ง)');
+    private $header_excel_monthly_cause_summary_columns = array('ลำดับ', 'สาเหตุ', 'จำนวน(ครั้ง)');
 
     public function index()
     {
@@ -33,7 +35,7 @@ class Report_accidents extends CI_Controller
         $data['form_search_data_url'] = site_url('report_accidents');
         $data['link_excel_monthly_summary_place_of_months'] = site_url('report_accidents/export_excel_summary_place_of_months');
         $data['link_excel_monthly_summary_accidents_type_of_months'] = site_url('report_accidents/excel_summary_accidents_type_of_months');
-        
+        $data['link_excel_monthly_summary_accidents_cause_of_months'] = site_url('report_accidents/export_excel_summary_cause_of_months');
         $data['link_excel_monthly'] = site_url('report_accidents/export_excel');
 
         $qstr = array(
@@ -153,6 +155,45 @@ class Report_accidents extends CI_Controller
         $data['results'] = $results;
         // echo "<pre>", print_r($data['results']); exit();
         $this->load->view('excel_accidents_monthly_summary_table', $data);
+    }
+
+    public function export_excel_summary_cause_of_months()
+    {
+        $data['header_columns'] = $this->header_excel_monthly_cause_summary_columns;
+        $inputs = $this->session->userdata();
+
+        $qstr = array(
+            // 'accidents.accident_date >=' => $inputs['start_date'],
+            // 'accidents.accident_date <=' => $inputs['end_date'],
+            'accident_cause.status !='        => 'disabled',
+        );
+
+        $distinct_cause = $this->Accidents_model->distinct_cause($qstr);
+        $data['cause'] = $distinct_cause['results'];
+        $results = array();
+        $qstr = array(
+            'accidents.accident_date >=' => $inputs['start_date'],
+            'accidents.accident_date <=' => $inputs['end_date'],
+            'accidents.status !='        => 'disabled',
+        );
+        foreach ($data['cause'] as $key => $value)
+        {
+            $qstr['accident_cause'] = $value['id'];
+            $results_count_accidents = $this->Accidents_model->count_accidents($qstr);
+
+            $qstr_cause = array('id' => $value['id']);
+            $results_cause = $this->Accidents_cause_model->all($qstr_cause);
+            $cause_name = (isset($results_cause['results'][0]['name']) ? $results_cause['results'][0]['name'] : '');
+
+            $results[] = array(
+                'results_count_accidents' => $results_count_accidents['rows'],
+                'cause_name'              => $cause_name,
+            );
+        }
+
+        $data['results'] = $results;
+        // echo "<pre>", print_r($data['results']); exit();
+        $this->load->view('excel_accidents_cause_monthly_summary_table', $data);
     }
 
     public function excel_summary_accidents_type_of_months() 

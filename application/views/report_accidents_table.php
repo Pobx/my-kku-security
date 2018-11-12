@@ -81,7 +81,11 @@
                 ?>
 							</td>
 							<td class="text-center">
-								<?php echo $value['accident_cause']; ?>
+								<?php 
+									$query = $this->db->select('name')->from('accident_cause')->where('id', $value['accident_cause'])->get();
+									$accident_cause = $query->result_array();
+									echo $accident_cause[0]['name']; 
+								 ?>
 							</td>
 							<td class="text-center">
 								<?php echo $value['count_injury']; ?>
@@ -125,6 +129,9 @@
 		<div class="box-footer">
 			<div class="row">
 				<div class="col-md-12 text-right">
+				<a href="<?php echo $link_excel_monthly_summary_accidents_cause_of_months;?>" target="_blank" class="btn btn-success"><i
+						 class="fa  fa-file-excel-o"></i>
+						Excel สรุปสาเหตุ</a>
 					<a href="<?php echo $link_excel_monthly_summary_accidents_type_of_months;?>" target="_blank" class="btn btn-success"><i
 						 class="fa  fa-file-excel-o"></i>
 						Excel สรุปแต่ละเดือน</a>

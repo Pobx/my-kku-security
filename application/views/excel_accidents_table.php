@@ -48,7 +48,10 @@ set_time_limit(0);
                 ?>
 			</td>
 			<td class="text-center">
-				<?php echo $value['accident_cause']; ?>
+				<?php
+					$query = $this->db->select('name')->from('accident_cause')->where('id', $value['accident_cause'])->get();
+					$accident_cause = $query->result_array();
+					echo $accident_cause[0]['name']; ?>
 			</td>
 			<td class="text-center">
 				<?php echo $value['count_injury']; ?>
@@ -82,13 +85,5 @@ set_time_limit(0);
 		</tr>
 		<?php }?>
 	</tbody>
-	<tfoot>
-		<?php foreach ($header_columns as $key => $value)
-{
-    ?>
-		<th>
-			<?php echo $value; ?>
-		</th>
-		<?php }?>
-	</tfoot>
+
 </table>
