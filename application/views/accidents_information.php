@@ -115,7 +115,7 @@
 		<div class="form-group">
 			<label for="assets_remark" class="col-sm-2 control-label">เจ้าหน้าที่ผู้รับเรื่อง</label>
 			<div class="col-sm-4">
-				<select name="recorder" id="recorder" class="form-control">
+				<select name="recorder" id="recorder" class="form-control accedent_recorder select2">
 					<option>เลือก...</option>
 					<?php foreach($users['results'] as $user){ ?>
 					<option value="<?php echo $user['id'];?>" <?php echo   $recorder == $user['id'] ? 'selected' : '' ?>><?php echo $user['name'];?></option>
@@ -132,4 +132,5 @@
 			<!-- <input type="text" class="form-control" id="assets_remark" name="assets_remark" placeholder="หมายเหตุ" value="<php echo $assets_remark; ?>"> -->
 		</div>
 	</div>
+	
 	

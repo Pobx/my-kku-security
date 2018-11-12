@@ -18,7 +18,7 @@
 					'main_info' =>array(
 						'topic' => 'ผู้ลืมกุญแจ'
 					),
-					'complainter' => $this->session->userdata('roles') == 'security' ? false : array(
+					'complainter' =>  array(
 						'topic' => 'ผู้เก็บกุญแจได้'
 					),
 					'upload_image' => array(),

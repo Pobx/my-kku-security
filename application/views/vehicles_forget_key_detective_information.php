@@ -3,7 +3,7 @@
 
 	<div class="col-sm-4">
 		<!-- <input type="text" class="form-control select2" id="name" name="name" placeholder="ชื่อ - สกุล" value=""> -->
-		<select class="form-control select2" style="width:240px" id="name" name="name" >
+		<select class="form-control select2 vehicle_forget_key_recorder" style="width:240px" id="name" name="name" >
 			<option>เลือก...</option>
 			<?php foreach($users['results'] as $user){ ?>
 				<option value="<?=$user['id'];?>"><?=$user['name'];?></option>

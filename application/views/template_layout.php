@@ -312,6 +312,8 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 	<script src="<?php echo base_url('dist/js/adminlte.min.js'); ?>"></script>
 	<script>
 		$(function () {
+			$('.accident_recorder').select2()
+			$('.vehicle_forget_key_recorder').select2()
 			Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
 			var pie_chart_display = '<?php echo $pie_chart_display;?>';
 
