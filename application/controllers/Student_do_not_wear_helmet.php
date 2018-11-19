@@ -171,11 +171,11 @@ class Student_do_not_wear_helmet extends CI_Controller
     public function upload_images(){
         //บันทึกรูป ถ้ามี
         if(count($_FILES) > 0){
-            $arr = [
+            $arr = array(
                 'file' => $_FILES,
                 'image_category' =>  'std-no-hm',
                 'category_id' =>  $this->input->post('id'),
-            ];
+            );
             $this->uploadimages->store_images($arr);
 
         }

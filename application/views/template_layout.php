@@ -21,7 +21,7 @@ if (!isset($sess_userprofile['logged']) || $sess_userprofile['logged'] == false)
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="<?php echo base_url('bower_components/Ionicons/css/ionicons.min.css'); ?>">
 	<!-- DataTables -->
-	<link rel="stylesheet" href="<?php echo base_url('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css'); ?>">
+	<!-- <link rel="stylesheet" href="<php echo base_url('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css'); ?>"> -->
 	<!-- iCheck for checkboxes and radio inputs -->
 	<link rel="stylesheet" href="<?php echo base_url('plugins/iCheck/all.css'); ?>">
 	<!-- bootstrap datepicker-thai -->
@@ -32,8 +32,8 @@ if (!isset($sess_userprofile['logged']) || $sess_userprofile['logged'] == false)
 	<link rel="stylesheet" href="<?php echo base_url('dist/css/AdminLTE.min.css'); ?>">
 
 	<link rel="stylesheet" href="<?php echo base_url('dist/css/my.css'); ?>">
-
-	<!-- AdminLTE Skins. Choose a skin from the css/skins
+	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
+		<!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="<?php echo base_url('dist/css/skins/_all-skins.min.css'); ?>">
 	<!-- Morris chart -->
@@ -253,6 +253,10 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 		$.widget.bridge('uibutton', $.ui.button);
 
 	</script>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 	<!-- Morris.js charts -->
 	<script src="<?php //echo base_url('bower_components/raphael/raphael.min.js'); ?>"></script>
 	<script src="<?php //echo base_url('bower_components/morris.js/morris.min.js'); ?>"></script>
@@ -264,7 +268,7 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 	<!-- jQuery Knob Chart -->
 	<script src="<?php //echo base_url('bower_components/jquery-knob/dist/jquery.knob.min.js'); ?>"></script>
 	<!-- daterangepicker -->
-	<script src="<?php //echo base_url('bower_components/moment/min/moment.min.js'); ?>"></script>
+	<script src="<?php echo base_url('bower_components/moment/min/moment.min.js'); ?>"></script>
 	<script src="<?php //echo base_url('bower_components/bootstrap-daterangepicker/daterangepicker.js'); ?>"></script>
 	<!-- datepicker -->
 	<script src="<?php echo base_url('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'); ?>"></script>
@@ -275,8 +279,8 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 	<!-- FastClick -->
 	<script src="<?php //echo base_url('bower_components/fastclick/lib/fastclick.js'); ?>"></script>
 	<!-- DataTables -->
-	<script src="<?php echo base_url('bower_components/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
-	<script src="<?php echo base_url('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'); ?>"></script>
+	<!-- <script src="<php echo base_url('bower_components/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
+	<script src="<php echo base_url('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'); ?>"></script> -->
 
 	<!-- iCheck 1.0.1 -->
 	<script src="<?php echo base_url('plugins/iCheck/icheck.min.js'); ?>"></script>
@@ -307,7 +311,7 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 	<script src="<?php echo base_url('assets/demo/piechart.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/demo/barchart.js'); ?>"></script>
 	
-
+	<script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="<?php echo base_url('dist/js/adminlte.min.js'); ?>"></script>
 	<script>
@@ -399,7 +403,7 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 				myBarChart(JSON.parse(barchart_values_questions), '#bar_chart_questions');
 				myBarChart(JSON.parse(barchart_values_followup), '#bar_chart_followup');
 			}
-
+			$('#myTable').DataTable();
 			// $('.mydataTable tfoot th').each(function () {
 			// 	var title = $(this).text();
 			// 	$(this).append('<br /><input type="text" class="form-control" placeholder="ค้นหา... ' + title + '" />');
@@ -436,12 +440,12 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 			// 	});
 			// });
 
-			$(".form_submit_data").submit(function () {
-				if (confirm('คุณต้องการบันทึกข้อมูลใช่หรือไม่ ?') == true) {
-					return true;
-				}
-				return false;
-			});
+			// $(".form_submit_data").submit(function () {
+			// 	if (confirm('คุณต้องการบันทึกข้อมูลใช่หรือไม่ ?') == true) {
+			// 		return true;
+			// 	}
+			// 	return false;
+			// });
 
 			//Flat red color scheme for iCheck
 			$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({

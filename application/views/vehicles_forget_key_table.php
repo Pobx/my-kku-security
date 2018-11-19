@@ -22,10 +22,11 @@
 			</div>
 
 			<br />
-
-			<table class="table table-bordered table-striped mydataTable">
+			<?php $i=1;?>
+			<table class="table table-bordered table-striped mydataTable" id="myTable">
 				<thead>
 					<tr>
+						<th>#</th>
 						<?php foreach ($header_columns as $key => $value)
 {
     ?>
@@ -40,10 +41,11 @@
 {
     ?>
 					<tr>
+						<th><?=$i++;?></th>
 						<td class="text-center">
 							<?php echo $value['date_forget_key'];?>
 						</td>
-						<td class="text-center">
+						<td class="text-left">
 							<?php echo $value['owner_assets_name']; ?>
 						</td>
 						<td class="text-center">
@@ -77,7 +79,8 @@
 								<i class="fa fa-trash-o"></i>
 							</a>
 						</td>
-
+						
+			
 					</tr>
 					 <!-- แสดงข้อมูล -->
 					<tr id="<?php echo "vh-fg-key_info".$value['id']; ?>" class="collapse content-wrapper">

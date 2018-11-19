@@ -26,7 +26,9 @@ class Date_libs
             $val = str_replace('/', '-', $val);
             $date_explod = explode('-', $val);
             $dates_en = $date_explod[0] . '-' . $date_explod[1] . '-' . ($date_explod[2] - 543);
-            $val_date = date('Y-m-d', strtotime($dates_en));
+            $val_date = ($date_explod[2] - 543)."-".$date_explod[0] . '-' . $date_explod[1] ;
+
+            // $val_date = date('Y-m-d', strtotime($dates_en));
         }
         return $val_date;
     }

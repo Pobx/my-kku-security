@@ -44,6 +44,7 @@
 				<table class="table table-bordered table-striped mydataTable">
 					<thead>
 						<tr>
+							<th>#</th>
 							<?php foreach ($header_columns as $key => $value){?>
 							<th class="text-center">
 								<?php echo $value; ?>
@@ -52,9 +53,11 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php $i=1;?>
 						<?php foreach ($results as $key => $value){?>
 
 						<tr>
+							<td class="text-center"><?php echo $i++;?></td>
 							<td class="text-center">
 								<?php echo $value['date_forget_key'];?>
 							</td>
@@ -75,9 +78,22 @@
 							</td>
 							<td>
 							<?php
-								$query = $this->db->where('id', $value['detective_name'])->get('users');
-								$detective = $query->result_array();
-								echo $detective[0]['name']; 
+							
+							$query = $this->db->where('vehicles_forget_key_id',$value['id'])
+							->join('users','users.id = vehicles_forget_key_detective.name' ,'left')
+							->get('vehicles_forget_key_detective');
+							
+							$complainters = $query->result_array();
+							$complainters['rows'] = $query->num_rows();
+							if($complainters['rows'] >0){
+								foreach($complainters as $complainter){
+									echo '<p class="text-muted"> ' .$complainter['name'].'</p>';
+								}
+							}else{
+								echo '<p class="text-muted"> ไม่ได้ระบุ</p>';
+
+							}
+					
 							?>
 						</td>
 						</tr>

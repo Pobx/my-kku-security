@@ -164,11 +164,11 @@ class Break_homes extends CI_Controller
     public function upload_images(){
         //บันทึกรูป ถ้ามี
         if(count($_FILES) > 0){
-            $arr = [
+            $arr = array(
                 'file' => $_FILES,
                 'image_category' =>  'bk-h',
                 'category_id' =>  $this->input->post('id'),
-            ];
+            );
             $this->uploadimages->store_images($arr);
 
         }

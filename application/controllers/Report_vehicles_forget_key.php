@@ -12,6 +12,7 @@ class Report_vehicles_forget_key extends CI_Controller
         $this->load->library('Date_libs');
         $this->load->library('FilterPeoples');
         $this->load->library('FilterBarChartData');
+        $this->load->model('Users_model');
     }
 
     private $head_topic_label           = 'สถิติการลืมกุญแจ';
@@ -24,7 +25,6 @@ class Report_vehicles_forget_key extends CI_Controller
         $inputs = $this->input->post();
         $data['start_date'] =(isset($inputs['start_date'])? $inputs['start_date'] : $this->date_libs->get_date_th(date('Y-m-d')));
         $data['end_date'] =(isset($inputs['end_date'])? $inputs['end_date'] : $this->date_libs->get_date_th(date('Y-m-d')));
-
         $data['head_topic_label'] = $this->head_topic_label;
         $data['head_sub_topic_label'] = $this->head_sub_topic_label_table;
         $data['header_columns'] = $this->header_columns;
@@ -33,10 +33,12 @@ class Report_vehicles_forget_key extends CI_Controller
         $data['link_excel_monthly'] =  site_url('report_vehicles_forget_key/export_excel');
 
         $qstr = array(
-          'vehicles_forget_key.date_forget_key >=' => $this->date_libs->set_date_th( $data['start_date']),
-          'vehicles_forget_key.date_forget_key <=' => $this->date_libs->set_date_th($data['end_date']),
+          'vehicles_forget_key.date_forget_key >=' => $this->date_libs->set_date_th( $data['start_date']).' 00:00:00',
+          'vehicles_forget_key.date_forget_key <=' => $this->date_libs->set_date_th($data['end_date']).' 00:00:00',
           'vehicles_forget_key.status !=' => 'disabled'
         );
+        // echo "<pre>";
+        // print_r($qstr);
 
         $sess_inputs = array(
           'start_date' => $this->date_libs->set_date_th( $data['start_date']),
@@ -46,7 +48,7 @@ class Report_vehicles_forget_key extends CI_Controller
 
         $results = $this->Vehicles_forget_key_model->all($qstr);
         $data['results'] = $results['results'];
-
+     
         $data['bar_chart_data'] = $this->filterbarchartdata->filter($results['results'], 'date_forget_key_en');
         // $data['fields'] = $results['fields'];
         $data['count_students'] = $this->filterpeoples->filter($results['results'], 'student', 'people_type');
@@ -63,7 +65,8 @@ class Report_vehicles_forget_key extends CI_Controller
         );
 
         $data['barchart_values_forget_keys'] = json_encode($barchart_values_forget_keys);
-        
+        $data['users_model'] = $this->Users_model;
+
         $data['content'] = 'report_vehicles_forget_key_table';
 
         // echo "<pre>", print_r($data['barchart_values_forget_keys']); exit();
@@ -82,7 +85,11 @@ class Report_vehicles_forget_key extends CI_Controller
         $results = $this->Vehicles_forget_key_model->all($qstr);
         $data['results'] = $results['results'];
         $data['fields'] = $results['fields'];
-
+        $data['count_students'] = $this->filterpeoples->filter($results['results'], 'student', 'people_type');
+        $data['count_people_outside'] = $this->filterpeoples->filter($results['results'], 'people_outside', 'people_type');
+        $data['count_people_inside'] = $this->filterpeoples->filter($results['results'], 'people_inside', 'people_type');
+        $data['count_staff'] = $this->filterpeoples->filter($results['results'], 'staff', 'people_type');
+        $data['count_staff'] += $data['count_people_inside'];
         // echo "<pre>", print_r($data['results']); exit();
         $this->load->view('excel_vehicles_forget_key', $data);
 

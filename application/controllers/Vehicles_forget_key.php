@@ -221,11 +221,11 @@ class Vehicles_forget_key extends CI_Controller
     public function upload_images(){
         //บันทึกรูป ถ้ามี
         if(count($_FILES) > 0){
-            $arr = [
+            $arr = array(
                 'file' => $_FILES,
                 'image_category' =>  'vh-fg-k',
                 'category_id' =>  $this->input->post('id'),
-            ];
+            );
             $this->uploadimages->store_images($arr);
 
         }

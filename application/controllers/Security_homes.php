@@ -30,7 +30,7 @@ class Security_homes extends CI_Controller
       $data['header_columns'] = $this->header_columns;
       
       $qstr = array(
-        'YEAR(start_date)'=>date('Y'),
+        // 'YEAR(start_date)'=>date('Y'),
         'status !='=>'disabled'
       );
       if($this->session->userdata['roles'] == 'security'){
@@ -44,7 +44,7 @@ class Security_homes extends CI_Controller
       $data['users_model'] = $this->Users_model;
       $data['content'] = 'security_homes_table';
 
-      // echo "<pre>", print_r($data['bar_chart_data']); exit();
+      // echo "<pre>", print_r($data['results']); exit();
       $this->load->view('template_layout', $data);
     }
 
@@ -167,11 +167,11 @@ class Security_homes extends CI_Controller
     public function upload_images(){
         //บันทึกรูป ถ้ามี
         if(count($_FILES) > 0){
-            $arr = [
+          $arr = array(
                 'file' => $_FILES,
                 'image_category' =>  'sec-home',
                 'category_id' =>  $this->input->post('id'),
-            ];
+          );
             $this->uploadimages->store_images($arr);
 
         }

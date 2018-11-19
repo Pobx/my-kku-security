@@ -172,11 +172,11 @@ class Break_motorcycle_pad extends CI_Controller
     public function upload_images(){
         //บันทึกรูป ถ้ามี
         if(count($_FILES) > 0){
-            $arr = [
+            $arr = array(
                 'file' => $_FILES,
                 'image_category' =>  'bk-mc-p',
                 'category_id' =>  $this->input->post('id'),
-            ];
+            );
             $this->uploadimages->store_images($arr);
 
         }

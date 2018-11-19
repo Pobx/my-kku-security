@@ -19,8 +19,21 @@
             <div class="box-body">
               <strong><i class="fa fa-book margin-r-5"></i> เจ้าหน้าที่ที่เก็บกุญแจ</strong>
                 <?php
-                    $complainter = $users_model->find($vh_fg_key_info['detective_name']);
-                    echo '<p class="text-muted"> ' .$complainter['results']->name.'</p>';
+                   $query = $this->db->where('vehicles_forget_key_id',$vh_fg_key_info['id'])
+                   ->join('users','users.id = vehicles_forget_key_detective.name' ,'left')
+                   ->get('vehicles_forget_key_detective');
+                  
+                   $complainters = $query->result_array();
+                   $complainters['rows'] = $query->num_rows();
+                   if($complainters['rows'] >1){
+                    foreach($complainters as $complainter){
+                        echo '<p class="text-muted"> ' .$complainter['name'].'</p>';
+                      }
+                   }else{
+                    echo '<p class="text-muted"> ไม่ได้ระบุ</p>';
+
+                   }
+                   
                 ?>
              
               <hr>

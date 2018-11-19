@@ -42,8 +42,7 @@ class Vehicles_forget_key_model extends CI_Model
     ) AS status_name,
     recorder,
     vehicles_forget_key_detective.name as detective_name,
-    vehicles_forget_key_detective.remark as detective_remark
-
+    vehicles_forget_key_detective.remark as detective_remark,
     ';
 
     private $items2 = '
@@ -97,7 +96,9 @@ class Vehicles_forget_key_model extends CI_Model
        
             $query = $this->db->select($this->items)->from($this->table)
                 ->join('vehicles_forget_key_place', 'vehicles_forget_key_place.id = vehicles_forget_key.vehicles_forget_key_place_id', 'left')
-                ->join('vehicles_forget_key_detective', 'vehicles_forget_key_detective.vehicles_forget_key_id = vehicles_forget_key.vehicles_forget_key_place_id', 'left' )
+                ->join('vehicles_forget_key_detective', 'vehicles_forget_key_detective.vehicles_forget_key_id = vehicles_forget_key.id', 'left' )
+                ->group_by('vehicles_forget_key.id')
+                ->order_by('vehicles_forget_key.people_type asc')
                 ->get();
 
         
@@ -105,7 +106,7 @@ class Vehicles_forget_key_model extends CI_Model
         $results['results'] = $query->result_array();
         $results['rows'] = $query->num_rows();
         $results['fields'] = $query->list_fields();
-        // echo "<pre>"; print_r($results);die();
+        // echo "<pre>"; print_r($results['results']);die();
         return $results;
     }
 
@@ -152,7 +153,7 @@ class Vehicles_forget_key_model extends CI_Model
         );
 
         $results['query'] = $this->db->where($this->id, $inputs['id'])->update($this->table, $inputs);
-
+// print_r($results['query']); die();
         return $results;
     }
 
