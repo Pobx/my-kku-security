@@ -107,7 +107,7 @@
 </div><!--row -->
 
 <?php 
-    $query = $this->db->where(['image_category'=>$image_category, 'category_id' => $category_id])->get('images');
+    $query = $this->db->where(array('image_category'=>$image_category, 'category_id' => $category_id))->get('images');
     $images = $query->result_array();
     // print_r($images);
     $images_num_rows = $query->num_rows();

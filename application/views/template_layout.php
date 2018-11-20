@@ -308,7 +308,6 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 	<script src="<?php echo base_url('assets/demo/piechart.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/demo/barchart.js'); ?>"></script>
 	
-	<!-- <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script> -->
 	<!-- AdminLTE App -->
 	<script src="<?php echo base_url('dist/js/adminlte.min.js'); ?>"></script>
 	<script>
@@ -400,7 +399,8 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 				myBarChart(JSON.parse(barchart_values_questions), '#bar_chart_questions');
 				myBarChart(JSON.parse(barchart_values_followup), '#bar_chart_followup');
 			}
-			$('#myTable').DataTable();
+			$('#myTable2').DataTable();
+			// $('#sec_home_datatable').DataTable();
 			// $('.mydataTable tfoot th').each(function () {
 			// 	var title = $(this).text();
 			// 	$(this).append('<br /><input type="text" class="form-control" placeholder="ค้นหา... ' + title + '" />');
@@ -422,7 +422,8 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 			// 			"last": "สุดท้าย",
 			// 			"next": "ต่อไป",
 			// 			"previous": "ย้อนกลับ"
-			// 		}
+			// 		},
+					
 			// 	}
 			// })
 			// .columns().every(function () {
@@ -437,12 +438,12 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 			// 	});
 			// });
 
-			// $(".form_submit_data").submit(function () {
-			// 	if (confirm('คุณต้องการบันทึกข้อมูลใช่หรือไม่ ?') == true) {
-			// 		return true;
-			// 	}
-			// 	return false;
-			// });
+			$(".form_submit_data").submit(function () {
+				if (confirm('คุณต้องการบันทึกข้อมูลใช่หรือไม่ ?') == true) {
+					return true;
+				}
+				return false;
+			});
 
 			//Flat red color scheme for iCheck
 			$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
@@ -507,6 +508,43 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 		})
 
 		
+	</script>
+
+	<script>
+	var table = $('#example').DataTable();
+	function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>Full name:</td>'+
+            '<td>'+d.name+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Extension number:</td>'+
+            '<td>'+d.extn+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Extra info:</td>'+
+            '<td>And any further details here (images etc)...</td>'+
+        '</tr>'+
+    '</table>';
+}
+
+	$('#example tbody').on('click', '.btn-info', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ console.log(row)
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
 	</script>
 </body>
 

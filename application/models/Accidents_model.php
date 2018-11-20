@@ -194,7 +194,7 @@ class Accidents_model extends CI_Model
                     );
                     if(isset($inputs['assets_destroyed_id'][$key])){
                         //ถ้าเป็นค่าเดิมให้ update
-                        $this->db->where(['accidents_id' =>$results['lastID'], 'id'=> $inputs['assets_destroyed_id'][$key]]);
+                        $this->db->where(array('accidents_id' =>$results['lastID'], 'id'=> $inputs['assets_destroyed_id'][$key]));
                         $this->db->update('accident_asset_affair_detroyed', $arr);
                     }else{
                         //ถ้ามีการเพิ่มค่าใหม่เข้ามาให้ทำการinsert

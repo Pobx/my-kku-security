@@ -92,7 +92,7 @@ class Accidents extends CI_Controller
        
         $data['accident_participate'] = $accident_participate['results'];
         $query = $this->db->select('*')
-                ->where(['accidents_id'=> $data['accident_id'], 'status' => 'active'])->get('accident_asset_affair_detroyed');
+                ->where(array('accidents_id'=> $data['accident_id'], 'status' => 'active'))->get('accident_asset_affair_detroyed');
         
         $data['accident_asset_destroyed']['data'] =  $query->result_array();
         $data['accident_asset_destroyed']['numrows'] =   $query->num_rows();
@@ -170,11 +170,11 @@ class Accidents extends CI_Controller
 
     public function store_image(){
         $inputs = $this->input->post();
-        $arr = [
+        $arr = array(
             'file' => $_FILES,
             'image_category' =>  'accd',
             'category_id' =>  $inputs['category_id'],
-        ];
+        );
         $this->uploadimages->store_images($arr);
         $this->session->set_flashdata('tab_status','upload_images');
         redirect('accidents/form_store/'.$inputs['category_id']);
@@ -271,7 +271,7 @@ class Accidents extends CI_Controller
 
     public function delete_raw_image(){
         $inputs = $this->input->post();
-        $query = $this->db->where(['id' =>$inputs['id']])->get('images');
+        $query = $this->db->where(array('id' =>$inputs['id']))->get('images');
         $delete_image = $query->result_array();
         $delete_image['num_rows'] = $query->num_rows();
         $str ='';

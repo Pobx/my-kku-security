@@ -89,7 +89,7 @@
 												<tr>
 													<td class="text-center">
 														<?php 
-															$query = $this->db->where(['id' => $complainter['recorder']])->get('users');
+															$query = $this->db->where(array('id' => $complainter['recorder']))->get('users');
 															$detective = $query->result_array();
 
 															echo $detective[0]['name']; 

@@ -39,8 +39,8 @@ class Break_motorcycle_pad extends CI_Controller
 
         $results = $this->Break_motorcycle_pad_model->all($qstr);
         $data['results'] = $results['results'];
-
-    
+        $data['content'] = 'break_motorcycle_pad/break_motocycle_pad_table';
+        $data['users_model'] = $this->Users_model;
         // echo "<pre>", print_r($data['results']); exit();
         $this->load->view('template_layout', $data);
     }

@@ -24,7 +24,7 @@
 			<br />
 
 			<div class="table-responsive">
-				<table class="table table-bordered table-striped mydataTable">
+				<table class="table table-bordered table-striped mydataTable" id="myTable">
 					<thead>
 						<?php foreach ($header_columns as $key => $value){ ?>
 						<th>
@@ -185,7 +185,7 @@
 								</div><!--row -->
 
 								<?php 
-									$query = $this->db->where(['image_category'=>'accd', 'category_id' => $results[0]['id']])->get('images');
+									$query = $this->db->where(array('image_category'=>'accd', 'category_id' => $results[0]['id']))->get('images');
 									$images = $query->result_array();
 									// print_r($images);
 									$images_num_rows = $query->num_rows();

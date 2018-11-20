@@ -51,13 +51,13 @@ class UploadImages {
                     // Initialize array
                     $data['filenames'][] = $filename;
                 
-                    $_file = [
+                    $_file = array(
                         'image_category' => $image_category,
                         'image_path' => $filename,
                         'category_id' => $category_id,
                         'create_date' => date('Y-m-d H:i:s'),
                         'update_date' => date('Y-m-d H:i:s'),
-                    ];
+                    );
                     $this->CI->db->insert('images', $_file);
                 }
             }

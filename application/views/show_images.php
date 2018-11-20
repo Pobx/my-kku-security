@@ -1,5 +1,5 @@
 <?php  print_r($arr);
-    $query = $this->db->where(['image_category'=>$arr['image_category'], 'category_id' => $arr['category_id']])->get('images');
+    $query = $this->db->where(array('image_category'=>$arr['image_category'], 'category_id' => $arr['category_id']))->get('images');
     $images = $query->result_array();
     // print_r($images);
     $images_num_rows = $query->num_rows();

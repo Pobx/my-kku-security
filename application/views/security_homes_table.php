@@ -23,7 +23,7 @@
 
 			<br />
 
-			<table class="table table-bordered table-striped mydataTable">
+			<table class="table table-bordered table-striped display" id="example">
 				<thead>
 					<tr>
 						<?php foreach ($header_columns as $key => $value) {?>

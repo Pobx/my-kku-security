@@ -83,21 +83,22 @@
 			
 					</tr>
 					 <!-- แสดงข้อมูล -->
-					<!-- <tr id="<?php echo "vh-fg-key_info".$value['id']; ?>" class="collapse content-wrapper">
+					<tr id="<?php echo "vh-fg-key_info".$value['id']; ?>" class="collapse content-wrapper">
 						<td colspan="11">
 							<?php
-								// $data = array(
-								// 	'case' => 'vehicles_forget_key',
-								// 	'cause_title' => 'สถานที่ลืม',
-								// 	'vh_fg_key_info' => $value,
-								// 	'image_category'=> 'vh-fg-k',
-								// 	'category_id' => $value['id']
-								// );
+								$data = array(
+									'case' => 'vehicles_forget_key',
+									'cause_title' => 'สถานที่ลืม',
+									'vh_fg_key_info' => $value,
+									'image_category'=> 'vh-fg-k',
+									'category_id' => $value['id']
+								);
 								 
-								// $this->load->view('show_info_toggle', $data);
+								$this->load->view('show_info_toggle', $data);
 							?>
 						</td>
-					</tr> -->
+						
+					</tr> 
 					<!-- end แสดงข้อมูล -->
 					<?php }?>
 				</tbody>

@@ -18,8 +18,24 @@
             <div class="box-body">
               <strong><i class="fa fa-book margin-r-5"></i> เจ้าหน้าที่ผู้รับเรื่อง</strong>
                 <?php
-                    $complainter = $users_model->find($bk_mc_p_info['recorder']);
-                    echo '<p class="text-muted"> ' .$complainter['results']->name.'</p>';
+                            
+                                $query = $this->db->where('vehicles_forget_key_id',$bk_mc_p_info['id'])
+                                ->join('users','users.id = vehicles_forget_key_detective.name' ,'left')
+                                ->get('vehicles_forget_key_detective');
+                               
+                                $complainters = $query->result_array();
+                                $complainters['rows'] = $query->num_rows();
+                                if($complainters['rows'] >1){
+                                 foreach($complainters as $complainter){
+                                     echo '<p class="text-muted"> ' .$complainter['name'].'</p>';
+                                   }
+                                }else{
+                                 echo '<p class="text-muted"> ไม่ได้ระบุ</p>';
+             
+                                }
+                      
+                    // $complainter = $users_model->find($bk_mc_p_info['recorder']);
+                    // echo '<p class="text-muted"> ' .$complainter['results']->name.'</p>';
                 ?>
              
               <hr>
@@ -92,7 +108,7 @@
 </div><!--row -->
 
 <?php 
-    $query = $this->db->where(['image_category'=>$image_category, 'category_id' => $category_id])->get('images');
+    $query = $this->db->where(array('image_category'=>$image_category, 'category_id' => $category_id))->get('images');
     $images = $query->result_array();
     // print_r($images);
     $images_num_rows = $query->num_rows();

@@ -39,7 +39,7 @@
 					<tr>
 						<td class="text-center">
 							<?php 
-								$query = $this->db->where(['id' => $value['name']])->get('users');
+								$query = $this->db->where(array('id' => $value['name']))->get('users');
 								$detective = $query->result_array();
 
 								echo $detective[0]['name']; 
