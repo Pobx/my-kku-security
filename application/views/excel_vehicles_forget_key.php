@@ -12,13 +12,17 @@ set_time_limit(0);
 		<th class="text-center">นักศึกษา (คน)</th>
 		<th class="text-center">บุคลากร (คน)</th>
 		<th class="text-center">บุคคลภายนอก (คน)</th>
+		<th class="text-center">ไม่ได้ระบุประเภท (คน)</th>
+
 		<th class="text-center">รวม</th>
 	</tr>
 	<tr>
-		<td class="text-center"><?php echo $count_students; ?> </td>
-		<td class="text-center"><?php echo $count_staff; ?> </td>
-		<td class="text-center"><?php echo $count_people_outside; ?> </td>
-		<td class="text-center"><?php echo $count_students+ $count_staff +$count_people_outside; ?> </td>
+		<td class="text-center"><?php echo $count_students =='' ? 0 : $count_students; ?> </td>
+		<td class="text-center"><?php echo $count_staff == '' ? 0 : $count_staff; ?> </td>
+		<td class="text-center"><?php echo $count_people_outside == '' ? 0 : $count_people_outside; ?> </td>
+		<td class="text-center"><?php echo $no_people_type == '' ? 0 : $no_people_type; ?> </td>
+
+		<td class="text-center"><?php echo $count_students+ $count_staff +$count_people_outside+$no_people_type; ?> </td>
 
 	</tr>
 </table>

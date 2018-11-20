@@ -33,12 +33,11 @@ class Report_vehicles_forget_key extends CI_Controller
         $data['link_excel_monthly'] =  site_url('report_vehicles_forget_key/export_excel');
 
         $qstr = array(
-          'vehicles_forget_key.date_forget_key >=' => $this->date_libs->set_date_th( $data['start_date']).' 00:00:00',
-          'vehicles_forget_key.date_forget_key <=' => $this->date_libs->set_date_th($data['end_date']).' 00:00:00',
+          'vehicles_forget_key.date_forget_key >=' => $this->date_libs->set_date_th( $data['start_date']),
+          'vehicles_forget_key.date_forget_key <=' => $this->date_libs->set_date_th($data['end_date']),
           'vehicles_forget_key.status !=' => 'disabled'
         );
-        // echo "<pre>";
-        // print_r($qstr);
+
 
         $sess_inputs = array(
           'start_date' => $this->date_libs->set_date_th( $data['start_date']),
@@ -56,6 +55,9 @@ class Report_vehicles_forget_key extends CI_Controller
         $data['count_people_inside'] = $this->filterpeoples->filter($results['results'], 'people_inside', 'people_type');
         $data['count_staff'] = $this->filterpeoples->filter($results['results'], 'staff', 'people_type');
         $data['count_staff'] += $data['count_people_inside'];
+
+        // echo "<pre>", print_r($results); exit();
+
         $barchart_values_forget_keys = array(
           'data'=> array($data['count_students'], $data['count_people_outside'], $data['count_staff'],),
           'labels'          => array('นักศึกษา', 'บุคคลภายนอก', 'บุคลากร',),
@@ -85,12 +87,13 @@ class Report_vehicles_forget_key extends CI_Controller
         $results = $this->Vehicles_forget_key_model->all($qstr);
         $data['results'] = $results['results'];
         $data['fields'] = $results['fields'];
+        
+        $data['no_people_type'] = $this->filterpeoples->filter($results['results'], '', 'people_type');
         $data['count_students'] = $this->filterpeoples->filter($results['results'], 'student', 'people_type');
         $data['count_people_outside'] = $this->filterpeoples->filter($results['results'], 'people_outside', 'people_type');
         $data['count_people_inside'] = $this->filterpeoples->filter($results['results'], 'people_inside', 'people_type');
         $data['count_staff'] = $this->filterpeoples->filter($results['results'], 'staff', 'people_type');
         $data['count_staff'] += $data['count_people_inside'];
-        // echo "<pre>", print_r($data['results']); exit();
         $this->load->view('excel_vehicles_forget_key', $data);
 
     }
