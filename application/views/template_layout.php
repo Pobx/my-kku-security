@@ -253,10 +253,7 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 		$.widget.bridge('uibutton', $.ui.button);
 
 	</script>
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<!-- Morris.js charts -->
 	<script src="<?php //echo base_url('bower_components/raphael/raphael.min.js'); ?>"></script>
 	<script src="<?php //echo base_url('bower_components/morris.js/morris.min.js'); ?>"></script>
@@ -279,8 +276,8 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 	<!-- FastClick -->
 	<script src="<?php //echo base_url('bower_components/fastclick/lib/fastclick.js'); ?>"></script>
 	<!-- DataTables -->
-	<!-- <script src="<php echo base_url('bower_components/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
-	<script src="<php echo base_url('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'); ?>"></script> -->
+  <script src="<?php echo base_url('bower_components/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
+  <script src="<?php echo base_url('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'); ?>"></script>
 
 	<!-- iCheck 1.0.1 -->
 	<script src="<?php echo base_url('plugins/iCheck/icheck.min.js'); ?>"></script>
