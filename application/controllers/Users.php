@@ -20,10 +20,25 @@ class Users extends CI_Controller
     private $success_message            = 'บันทึกข้อมูลสำเร็จ';
     private $warning_message            = 'ไม่สามารถทำรายการ กรุณลองใหม่อีกครั้ง';
     private $danger_message             = 'ลบข้อมูลสำเร็จ';
-    private $roles_lists = array('admin', 'security');
+    private $roles_lists = array(
+        'admin'=> 'ผู้ดูแลระบบ', 
+        'security'=>'เจ้าหน้าที่รักษาความปลอดภัย', 
+        'traffic'=>'หน่วยจราจร', 
+        'vehicle'=> 'หน่วยยานพาหนะ',
+        'special_unit' => 'หน่วยปฏิบัติการเฉพาะกิจ',
+        'sitan_news' => 'หน่วยข่าวสีฐาน',
+        'sirikunakorn' => 'ศิริคุณากร',
+        'fire_hydrant'=> 'หน่วยดับเพลิง'
+    );
 
     public function index()
     {
+        // foreach($input as $inputs){
+        //     $this->db->insert('users', $inputs);
+
+        // }
+        // die();
+        
         $data['head_topic_label'] = $this->head_topic_label;
         $data['head_sub_topic_label'] = $this->head_sub_topic_label_table;
         $data['link_go_to_form'] = site_url('users/form_store');

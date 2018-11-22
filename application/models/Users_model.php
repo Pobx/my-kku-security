@@ -17,6 +17,12 @@ class Users_model extends CI_Model
         WHEN roles = "operation" THEN "เจ้าหน้าที่"
         WHEN roles = "management" THEN "ผู้บริหาร"
         WHEN roles = "security" THEN "เจ้าหน้าที่รักษาความปลอดภัย"
+        WHEN roles = "traffic" THEN "หน่วยจราจร" 
+        WHEN roles = "vehicle" THEN  "หน่วยยานพาหนะ"
+        WHEN roles = "special_unit"  THEN  "หน่วยปฏิบัติการเฉพาะกิจ"
+        WHEN roles = "sitan_news"  THEN  "หน่วยข่าวสีฐาน"
+        WHEN roles = "sirikunakorn"  THEN  "ศิริคุณากร"
+        WHEN roles = "fire_hydrant" THEN  "หน่วยดับเพลิง"
         ELSE ""
       END
     ) AS roles_name,
@@ -37,7 +43,7 @@ class Users_model extends CI_Model
             $this->db->where($qstr);
         }
 
-        $query = $this->db->select($this->items)->from($this->table)->get();
+        $query = $this->db->select($this->items)->from($this->table)->order_by('username', 'asc')->get();
 
         $results['results'] = $query->result_array();
         $results['rows'] = $query->num_rows();
@@ -59,7 +65,7 @@ class Users_model extends CI_Model
 
     public function store($inputs)
     {
-        echo "<pre>", print_r($inputs); exit();
+        // echo "<pre>", print_r($inputs); exit();
         if ($inputs['id'] != '')
         {
             $inputs['updated'] = date('Y-m-d H:i:s');

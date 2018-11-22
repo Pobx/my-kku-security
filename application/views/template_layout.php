@@ -400,6 +400,7 @@ echo 'ขณะนี้เวลา  ' . $now_date;
 				myBarChart(JSON.parse(barchart_values_followup), '#bar_chart_followup');
 			}
 			$('#myTable2').DataTable();
+			$('.mydataTable2').DataTable();
 			// $('#sec_home_datatable').DataTable();
 			// $('.mydataTable tfoot th').each(function () {
 			// 	var title = $(this).text();

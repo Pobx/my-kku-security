@@ -50,6 +50,7 @@
 								<?php echo $value; ?>
 							</th>
 							<?php }?>
+							<th>หมายเหตุ</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -96,6 +97,7 @@
 					
 							?>
 						</td>
+						<td><?php echo $value['detective_remark'];?></td>
 						</tr>
 						<?php }?>
 

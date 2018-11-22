@@ -48,7 +48,7 @@ class Report_security_home extends CI_Controller
         $data['fields'] = $results['fields'];
         $data['content'] = 'report_security_home_table';
 
-        // echo "<pre>", print_r($data['results']); exit();
+        // echo "<pre>", print_r($qstr); exit();
         $this->load->view('template_layout', $data);
     }
 

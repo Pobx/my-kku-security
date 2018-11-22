@@ -38,6 +38,7 @@ set_time_limit(0);
 			</th>
 			<?php }?>
 			<th>ประเภทบุคคล</th>
+			<th>หมายเหตุ</th>
 		</tr>
 		
 	</thead>
@@ -102,7 +103,9 @@ set_time_limit(0);
 					}else{
 						$str = 'บุคลากร';
 					}
-					echo $str;?></td>
+					echo $str;?>
+			</td>
+			<td><?php echo $value['detective_remark'];?></td>
 		</tr>	
 		<?php }?>
 	</tbody>
