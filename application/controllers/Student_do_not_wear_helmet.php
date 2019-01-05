@@ -32,8 +32,8 @@ class Student_do_not_wear_helmet extends CI_Controller
         $data['header_columns'] = $this->header_columns;
 
         $qstr = array(
-          'YEAR(inspect_date)'=>date('Y'),
-          'status !=' => 'disabled'
+          // 'YEAR(inspect_date)'=>date('Y'),
+          'status' => 'active'
         );
 
         $results = $this->Student_do_not_wear_helmet_model->all($qstr);

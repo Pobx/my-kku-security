@@ -33,7 +33,7 @@ class Redbox extends CI_Controller
         $data['header_columns'] = $this->header_columns;
 
         $qstr = array(
-          'YEAR(redbox_inspect_transaction.inspect_date)'=>date('Y'),
+          // 'YEAR(redbox_inspect_transaction.inspect_date)'=>date('Y'),
           'redbox_inspect_transaction.status' => 'active'
         );
 

@@ -31,8 +31,8 @@ class Cctv_request_log extends CI_Controller
         $data['header_columns'] = $this->header_columns;
 
         $qstr = array(
-          'YEAR(cctv_request_log.request_date)'=>date('Y'),
-          'cctv_request_log.status !=' => 'disabled'
+          // 'YEAR(cctv_request_log.request_date)'=>date('Y'),
+          'cctv_request_log.status' => 'active'
         );
 
         $results = $this->Cctv_request_log_model->all($qstr);

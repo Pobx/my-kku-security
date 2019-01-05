@@ -42,7 +42,7 @@ class Accidents extends CI_Controller
 
         
         $qstr = array(
-          'YEAR(accidents.accident_date)'=>date('Y'),
+          // 'YEAR(accidents.accident_date)'=>date('Y'),
           'accidents.status !=' => 'disabled',
         );
         if($this->session->userdata['roles'] == 'security'){

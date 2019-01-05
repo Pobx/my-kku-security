@@ -29,7 +29,7 @@ class Dashboard extends CI_Controller
         $data['head_topic_label'] = $this->head_topic_label;
         $data['year_th'] = 'ปี พ.ศ ' . (date('Y') + 543);
         $qstr_accidents = array(
-            'YEAR(accidents.accident_date)' => date('Y'),
+            // 'YEAR(accidents.accident_date)' => date('Y'),
             'accidents.status'              => 'active',
         );
 
@@ -45,7 +45,7 @@ class Dashboard extends CI_Controller
         $data['count_accidents_people_inside'] = $this->filterpeoples->filter($results_participate, 'people_inside', 'people_type');
 
         $qstr_break_homes = array(
-            'YEAR(date_break)' => date('Y'),
+            // 'YEAR(date_break)' => date('Y'),
             'status'           => 'active',
         );
 
@@ -53,7 +53,7 @@ class Dashboard extends CI_Controller
         $data['count_break_homes'] = $results_break_homes['rows'];
 
         $qstr_security_home = array(
-            'YEAR(start_date)' => date('Y'),
+            // 'YEAR(start_date)' => date('Y'),
             // 'status'          => 'active',
         );
 
@@ -61,7 +61,7 @@ class Dashboard extends CI_Controller
         $data['count_security_home'] = $results_security_home['rows'];
 
         $qstr_vehicles_forget_key = array(
-            'YEAR(date_forget_key)'      => date('Y'),
+            // 'YEAR(date_forget_key)'      => date('Y'),
             'vehicles_forget_key.status' => 'active',
         );
 
@@ -77,7 +77,7 @@ class Dashboard extends CI_Controller
         $data['count_vehicles_forget_key_people_outside'] = $this->filterpeoples->filter($results_vehicles_forget_key['results'], 'people_outside', 'people_type');
 
         $qstr_break_motorcycle_pad = array(
-            'YEAR(date_break)' => date('Y'),
+            // 'YEAR(date_break)' => date('Y'),
             'status'           => 'active',
         );
 
@@ -96,7 +96,7 @@ class Dashboard extends CI_Controller
         $data['count_break_motorcycle_pad_people_outside'] = $this->filterpeoples->filter($results_break_motorcycle_pad['results'], 'people_outside', 'people_type');
 
         $qstr_student_do_not_wear_helmet = array(
-            'YEAR(inspect_date)' => date('Y'),
+            // 'YEAR(inspect_date)' => date('Y'),
             'status'             => 'active',
         );
 

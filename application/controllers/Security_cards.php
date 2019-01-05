@@ -27,7 +27,7 @@ class Security_cards extends CI_Controller
         $data['link_go_to_remove'] = site_url('security_cards/remove');
         $data['header_columns'] = $this->header_columns;
 
-        $qstr = array('status !=' => 'disabled');
+        $qstr = array('status' => 'active');
         $results = $this->Security_cards_model->all($qstr);
         $data['results'] = $results['results'];
         $data['fields'] = $results['fields'];

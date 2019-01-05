@@ -33,8 +33,8 @@ class Break_motorcycle_pad extends CI_Controller
         $data['header_columns'] = $this->header_columns;
 
         $qstr = array(
-          'YEAR(date_break)'=>date('Y'),
-          'status !=' => 'disabled'
+          // 'YEAR(date_break)'=>date('Y'),
+          'status' => 'active'
         );
 
         $results = $this->Break_motorcycle_pad_model->all($qstr);

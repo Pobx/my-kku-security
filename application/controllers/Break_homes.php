@@ -30,7 +30,7 @@ class Break_homes extends CI_Controller
         $data['link_go_to_remove'] = site_url('break_homes/remove');
         $data['header_columns'] = $this->header_columns;
 
-        $qstr = array('status !=' => 'disabled');
+        $qstr = array('status' => 'active');
         $results = $this->Break_homes_model->all($qstr);
         $data['results'] = $results['results'];
         $data['fields'] = $results['fields'];
