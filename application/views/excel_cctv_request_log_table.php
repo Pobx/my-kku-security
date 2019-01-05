@@ -11,7 +11,7 @@ set_time_limit(0);
 <table border="1">
 	<thead>
 		<tr>
-			<?php foreach ($header_columns as $key => $value)
+			<?php foreach ($header_columns2 as $key => $value)
 {
     ?>
 			<th>
@@ -43,11 +43,21 @@ set_time_limit(0);
 			<td class="text-center">
 				<?php echo $value['area']; ?>
 			</td>
+			<td class="text-center">
+				<?php
+					if( $value['operation_status']=="have_not_even"){
+						$str = 'ไม่พบเหตุการณ์';
+					}else{
+						$str = 'พบเหตุการณ์';
+					}
+				 echo $str; 
+				 ?>
+			</td>
 		</tr>
 		<?php }?>
 	</tbody>
 	<tfoot>
-		<?php foreach ($header_columns as $key => $value)
+		<?php foreach ($header_columns2 as $key => $value)
 {
     ?>
 		<th>

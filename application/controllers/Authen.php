@@ -8,6 +8,8 @@ class Authen extends CI_Controller
         parent::__construct();
 
         $this->load->model('Users_model');
+        $this->load->library('session');
+
     }
 
     public function index()
@@ -19,16 +21,21 @@ class Authen extends CI_Controller
           , 'role' => 'form'
           , 'autocomplete' => 'off',
       );
+      if($this->uri->segment(3)  == "app"){
+        $this->session->set_userdata('from_app', 1);
+      }else{
+        $this->session->set_userdata('from_app', 0);
+      }
+     
         $this->load->view('template_authen2', $data);
     }
 
     public function login() {
       $inputs = $this->input->post();
+
       $inputs['passwords'] = md5($inputs['passwords']);
       $inputs['status'] = 'active';
-
       $results = $this->Users_model->all($inputs);
-      
       if ($results['rows'] > 0 && $results['results'][0]['roles'] =='admin') {
         $results['results'][0]['logged'] = true;
         $this->session->set_userdata($results['results'][0]);
@@ -37,7 +44,13 @@ class Authen extends CI_Controller
       } else if ($results['rows'] > 0 && $results['results'][0]['roles'] =='security') {
         $results['results'][0]['logged'] = true;
         $this->session->set_userdata($results['results'][0]);
-        redirect('dashboardsecurity');
+        if($this->session->userdata('from_app') == 1 ){
+          
+          redirect('redbox_security_only/form_store');
+        }else{
+          redirect('dashboardsecurity');
+        }
+        
       }else {
         redirect('authen');
       }

@@ -68,7 +68,7 @@ class Dashboardsecurity extends CI_Controller
         $qstr_vehicles_forget_key = array(
             'YEAR(date_forget_key)'      => date('Y'),
             'vehicles_forget_key.status' => 'active',
-            // 'recorder'          => $this->session->userdata('id'),
+            'recorder'          => $this->session->userdata('id'),
         );
 
         $results_vehicles_forget_key = $this->Vehicles_forget_key_model->all($qstr_vehicles_forget_key);

@@ -42,13 +42,14 @@ class Report_security_home extends CI_Controller
         $this->session->set_userdata($sess_inputs);
 
         $results = $this->Security_home_model->all($qstr);
+        
         $data['results'] = $results['results'];
 
         $data['bar_chart_data'] = $this->filterbarchartdata->filter($results['results'], 'start_date_en');
         $data['fields'] = $results['fields'];
         $data['content'] = 'report_security_home_table';
 
-        // echo "<pre>", print_r($qstr); exit();
+        echo "<pre>", print_r($qstr); exit();
         $this->load->view('template_layout', $data);
     }
 

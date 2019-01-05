@@ -15,6 +15,7 @@ class Report_cctv_request_log extends CI_Controller
     private $head_topic_label           = 'สถิติขอความอนุเคราะห์ดูภาพเหตุการณ์';
     private $head_sub_topic_label_table = 'รายงาน สถิติขอความอนุเคราะห์ดูภาพเหตุการณ์';
     private $header_columns             = array('วันที่', 'ชื่อ-สกุล','เพศ','ประเภทบุคลากร', 'เหตุการณ์','บริเวณที่เกิดเหตุ');
+    private $header_columns2             = array('วันที่', 'ชื่อ-สกุล','เพศ','ประเภทบุคลากร', 'เหตุการณ์','บริเวณที่เกิดเหตุ','ผลการดำเนินการ');
 
     public function index()
     {
@@ -54,7 +55,7 @@ class Report_cctv_request_log extends CI_Controller
 
     public function export_excel()
     {
-        $data['header_columns'] = $this->header_columns;
+        $data['header_columns2'] = $this->header_columns;
         $inputs = $this->session->userdata();
         $qstr = array(
           'DATE(cctv_request_log.request_date) >='  => $inputs['start_date'],

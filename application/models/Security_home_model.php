@@ -47,7 +47,7 @@ class Security_home_model extends CI_Model {
     $results['rows'] = $query->num_rows();
     $results['fields'] = $query->list_fields();
 //     echo "<pre>";
-// print_r($results['results']);
+// print_r($query);
     
 
     return $results;

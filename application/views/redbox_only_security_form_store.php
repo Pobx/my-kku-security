@@ -2,7 +2,7 @@
 	<div class="box box-primary">
 		<div class="box-header with-border">
 			<h3 class="box-title">
-				<?php echo $head_sub_topic_label; ?>
+				<?php echo $head_sub_topic_label."<br> โดย :".$username; ?>
 			</h3>
 		</div>
 
@@ -37,7 +37,7 @@
 						<!-- /.widget-user-image -->
 					
 						<h4 class="widget-user-username" style="font-size:20px; font-weight:bold">จุดที่ตรวจสอบแล้ว</h4>
-						<h5 class="widget-user-desc"><?php echo "kku".$user_id; ?></h5>
+						<h5 class="widget-user-desc"><?php echo $username; ?></h5>
 						</div>
 						<div class="box-footer no-padding">
 						<ul class="nav nav-stacked">
