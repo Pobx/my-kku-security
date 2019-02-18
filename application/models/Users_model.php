@@ -65,16 +65,17 @@ class Users_model extends CI_Model
 
     public function store($inputs)
     {
-        // echo "<pre>", print_r($inputs); exit();
+        $inputs['passwords'] =  md5($inputs['passwords']);
+        $inputs['updated'] = date('Y-m-d H:i:s');
+
         if ($inputs['id'] != '')
         {
-            $inputs['updated'] = date('Y-m-d H:i:s');
+
             $results['query'] = $this->db->where($this->id, $inputs['id'])->update($this->table, $inputs);
             $results['lastID'] = $inputs['id'];
         }
         else
         {
-            $inputs['created'] = date('Y-m-d H:i:s');
             $results['query'] = $this->db->insert($this->table, $inputs);
             $results['lastID'] = $this->db->insert_id();
         }
