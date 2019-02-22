@@ -29,13 +29,15 @@ class Dashboardsecurity extends CI_Controller
         $data['head_topic_label'] = $this->head_topic_label;
         $data['year_th'] = 'ปี พ.ศ ' . (date('Y') + 543);
         $qstr_accidents = array(
-            'YEAR(accidents.accident_date)' => date('Y'),
+            //'YEAR(accidents.accident_date)' => date('Y'),
             'accidents.status'              => 'active',
-            'recorder'          => $this->session->userdata('id'),
+            'accidents.recorder'          => $this->session->userdata('id'),
 
         );
-
         $results_accidents = $this->Accidents_model->all($qstr_accidents);
+        // echo "<pre>";
+        // print_r($results_accidents); die();
+
         $data['count_accidents'] = $results_accidents['rows'];
         $data['count_accidents_morning'] = $this->filterperiodtimes->filter($results_accidents['results'], 'morning', 'period_time');
         $data['count_accidents_afternoon'] = $this->filterperiodtimes->filter($results_accidents['results'], 'afternoon', 'period_time');

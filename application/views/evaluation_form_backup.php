@@ -1,6 +1,4 @@
-<?php 
-// echo "<pre>"; print_r($data); die();
-      ?>
+
 <section class="content">
 	<div class="box box-primary">
 		<div class="box-header with-border">
@@ -320,5 +318,4 @@
 
 		</div>
 
-	</div>
-           
+</div>

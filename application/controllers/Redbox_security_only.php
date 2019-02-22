@@ -39,11 +39,11 @@ class Redbox_security_only extends CI_Controller
 
         $data['roles'] = $sess_data['roles'];
         
-        if ($sess_data['roles'] =='security') {
+        // if ($sess_data['roles'] =='security') {
           $data['user_id'] = $sess_data['id'];
           $data['name'] = $sess_data['name'];
           $data['username'] = $sess_data['username'];
-        }
+        //  }
 
         $data['checked_redbox_place'] = $results_redbox_place['results2'];
         $data['redbox_total_rows'] =  $results_redbox_place['rows'];
