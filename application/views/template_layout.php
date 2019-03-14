@@ -1,4 +1,5 @@
 <?php
+ob_start();
 $sess_userprofile = $this->session->userdata();
 if (!isset($sess_userprofile['logged']) || $sess_userprofile['logged'] == false)
 {
